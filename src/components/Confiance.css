@@ -1,0 +1,20 @@
+.confiance {
+  margin: 0 40px 72px;
+  background: var(--accent);
+  color: #0E0F12;
+  border-radius: 24px;
+  padding: 48px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 32px;
+}
+
+.confiance h3 {
+  font-size: 28px;
+}
+
+.confiance p {
+  margin: 10px 0 0;
+  font-size: 15px;
+  line-height: 1.5;
+}

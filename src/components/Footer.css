@@ -1,0 +1,10 @@
+.pied {
+  padding: 32px 40px 40px;
+  border-top: 1px solid var(--bordure);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 14px;
+  color: var(--texte-doux);
+}
