@@ -38,3 +38,19 @@ button, input, select {
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
+.page-simple {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+.page-simple h1 {
+  font-size: 48px;
+  margin-bottom: 24px;
+}
+
+.page-simple p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--texte-doux);
+}

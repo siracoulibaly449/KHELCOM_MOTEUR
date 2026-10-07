@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import './Commercant.css'
@@ -18,30 +18,43 @@ const statuts = ['Disponible', 'En préparation', 'Vendu']
 function Commercant() {
   const navigate = useNavigate()
   const [lignes, setLignes] = useState<Ligne[]>([])
-  const [pret, setPret] = useState(false)
   const [ajoutOuvert, setAjoutOuvert] = useState(false)
+  const [message, setMessage] = useState('')
 
-  async function charger() {
+  const charger = useCallback(async () => {
     const { data, error } = await supabase
       .from('moteurs')
       .select('id, nom, code, etat, prix, disponibilite')
       .order('id')
-    if (error) console.error(error)
+    if (error) {
+      setMessage('Impossible de charger les moteurs : ' + error.message)
+      return
+    }
     setLignes(data ?? [])
-  }
+  }, [])
 
+  // Chargement initial : l'effet ne fait que lancer la requête
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => {
-      if (!data.session) {
-        navigate('/connexion')
-        return
-      }
-      setPret(true)
-      charger()
-    })
+    let annule = false
+    supabase
+      .from('moteurs')
+      .select('id, nom, code, etat, prix, disponibilite')
+      .order('id')
+      .then(({ data, error }) => {
+        if (annule) return
+        if (error) {
+          setMessage('Impossible de charger les moteurs : ' + error.message)
+          return
+        }
+        setLignes(data ?? [])
+      })
+    return () => {
+      annule = true
+    }
   }, [])
 
   async function changerStatut(ligne: Ligne, nouveau: string) {
+    setMessage('')
     const { data: { user } } = await supabase.auth.getUser()
 
     const { error } = await supabase
@@ -50,16 +63,22 @@ function Commercant() {
       .eq('id', ligne.id)
 
     if (error) {
-      alert('Modification refusée : ' + error.message)
+      setMessage('Modification refusée : ' + error.message)
       return
     }
 
-    await supabase.from('historique_statuts').insert({
-      moteur_id: ligne.id,
-      ancien_statut: ligne.disponibilite,
-      nouveau_statut: nouveau,
-      modifie_par: user?.id,
-    })
+    const { error: erreurHistorique } = await supabase
+      .from('historique_statuts')
+      .insert({
+        moteur_id: ligne.id,
+        ancien_statut: ligne.disponibilite,
+        nouveau_statut: nouveau,
+        modifie_par: user?.id,
+      })
+
+    if (erreurHistorique) {
+      setMessage("Statut modifié, mais l'historique n'a pas pu être enregistré.")
+    }
 
     charger()
   }
@@ -68,8 +87,6 @@ function Commercant() {
     await supabase.auth.signOut()
     navigate('/connexion')
   }
-
-  if (!pret) return <p style={{ padding: 40 }}>Chargement…</p>
 
   const compte = (s: string) => lignes.filter((l) => l.disponibilite === s).length
 
@@ -94,6 +111,8 @@ function Commercant() {
             </button>
           )}
         </div>
+
+        {message && <p className="erreur">{message}</p>}
 
         {ajoutOuvert && (
           <AjouterMoteur

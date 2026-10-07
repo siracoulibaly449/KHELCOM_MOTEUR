@@ -1,7 +1,6 @@
 import './Header.css'
 import { Link } from 'react-router-dom'
 
-const liens = ['Moteurs', 'Pièces', 'Occasion', 'Garanties', 'Contact']
 
 function Header() {
   return (
@@ -12,10 +11,10 @@ function Header() {
 
       <nav className="navigation">
         <Link to="/catalogue">Moteurs</Link>
-        <a href="#">Pièces</a>
-        <a href="#">Occasion</a>
-        <a href="#">Garanties</a>
-        <a href="#">Contact</a>
+        <Link to="/catalogue">Pièces</Link>
+        <Link to="/catalogue">Occasion</Link>
+        <Link to="/garanties">Garanties</Link>
+        <Link to="/contact">Contact</Link>
       </nav>
 
       <div className="actions">
