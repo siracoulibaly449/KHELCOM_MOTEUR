@@ -1,0 +1,76 @@
+.carte {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.carte:hover {
+  transform: translateY(-6px);
+  border-color: var(--accent);
+  box-shadow: 0 24px 48px -16px rgba(255, 122, 26, 0.35);
+}
+
+.carte-image {
+  height: 180px;
+  background: linear-gradient(135deg, #23262D, #15171B);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--texte-doux);
+  font-size: 14px;
+}
+
+.carte-corps {
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.badge-etat {
+  align-self: flex-start;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: #0E0F12;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.carte h3 {
+  font-size: 22px;
+}
+
+.compatibilite {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--texte-doux);
+}
+
+.carte-bas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.prix {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.voir-fiche {
+  min-height: 44px;
+  padding: 11px 16px;
+  background: var(--texte);
+  color: var(--fond);
+  border: 0;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}

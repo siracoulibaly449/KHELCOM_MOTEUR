@@ -1,0 +1,40 @@
+:root {
+  --fond: #0E0F12;
+  --carte: #17191E;
+  --bordure: #2A2D35;
+  --accent: #FF7A1A;
+  --accent-clair: #FF9A4D;
+  --texte: #F5F3EE;
+  --texte-doux: #B9B6AE;
+  --succes: #8BE3A8;
+  --ambre: #FFB84D;
+  --bleu: #7FD1FF;
+  --police-titre: 'Archivo Black', Arial, sans-serif;
+  --police-texte: 'Archivo', Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fond);
+  color: var(--texte);
+  font-family: var(--police-texte);
+}
+
+h1, h2, h3 {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  margin: 0;
+}
+
+button, input, select {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}

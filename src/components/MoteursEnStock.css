@@ -1,0 +1,33 @@
+.stock {
+  padding: 56px 40px 72px;
+}
+
+.stock-entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.stock h2 {
+  font-size: 40px;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.tout-voir {
+  color: var(--accent-clair);
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+}
+
+.stock-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}

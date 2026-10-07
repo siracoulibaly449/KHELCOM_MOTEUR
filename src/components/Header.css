@@ -1,0 +1,61 @@
+.entete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 22px 40px;
+}
+
+.logo {
+  font-family: var(--police-titre);
+  font-size: 26px;
+  letter-spacing: 0.5px;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.navigation {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--texte-doux);
+}
+
+.navigation a,
+.connexion {
+  color: var(--texte-doux);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.navigation a:hover,
+.connexion:hover {
+  color: var(--texte);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.panier {
+  background: var(--accent);
+  color: #0E0F12;
+  border: 0;
+  padding: 12px 20px;
+  min-height: 44px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.panier:hover {
+  background: var(--accent-clair);
+}

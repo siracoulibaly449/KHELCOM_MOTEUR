@@ -1,0 +1,25 @@
+.bandeau {
+  background: var(--accent);
+  color: #0E0F12;
+  padding: 14px 0;
+  overflow: hidden;
+  font-family: var(--police-titre);
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.bandeau-piste {
+  display: flex;
+  width: max-content;
+  animation: defilement 22s linear infinite;
+}
+
+.bandeau-piste span {
+  padding-right: 48px;
+  white-space: nowrap;
+}
+
+@keyframes defilement {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
