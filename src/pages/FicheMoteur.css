@@ -1,0 +1,201 @@
+.fiche {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 32px 40px 72px;
+}
+
+.fiche-retour {
+  display: inline-block;
+  margin-bottom: 24px;
+  color: var(--texte-doux);
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.fiche-retour:hover {
+  color: var(--texte);
+}
+
+.fiche-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+.galerie-principale {
+  aspect-ratio: 4 / 3;
+  background: linear-gradient(135deg, #23262D, #15171B);
+  border: 1px solid var(--bordure);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--texte-doux);
+}
+
+.galerie-principale img,
+.miniature img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.miniatures {
+  display: flex;
+  gap: 12px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.miniature {
+  width: 84px;
+  height: 64px;
+  padding: 0;
+  border: 2px solid var(--bordure);
+  border-radius: 12px;
+  overflow: hidden;
+  background: none;
+  cursor: pointer;
+}
+
+.miniature.active {
+  border-color: var(--accent);
+}
+
+.etat {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-clair);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.infos h1 {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 1.1;
+  margin: 12px 0 8px;
+}
+
+.code {
+  margin: 0;
+  color: var(--texte-doux);
+  font-size: 15px;
+}
+
+.prix {
+  font-family: var(--police-titre);
+  font-size: 44px;
+  margin: 24px 0;
+}
+
+.bientot-dispo {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: rgba(255, 184, 77, 0.12);
+  color: var(--ambre);
+  font-size: 14px;
+}
+
+.compatibilite,
+.description {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--bordure);
+}
+
+.compatibilite h2,
+.description h2 {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  font-size: 20px;
+  margin: 0 0 10px;
+}
+
+.compatibilite p,
+.description p {
+  margin: 0;
+  color: var(--texte-doux);
+  line-height: 1.6;
+}
+
+.aide {
+  margin-top: 8px !important;
+  font-size: 14px;
+}
+
+.garanties {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--texte-doux);
+}
+
+.garanties a {
+  color: var(--accent-clair);
+}
+
+.actions-fiche {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 32px;
+}
+
+.fiche-bouton {
+  min-height: 52px;
+  padding: 16px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.fiche-bouton.principal {
+  background: var(--accent);
+  color: #0E0F12;
+  border: 0;
+}
+
+.fiche-bouton.principal:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.fiche-bouton.secondaire {
+  background: transparent;
+  color: var(--texte);
+  border: 1px solid var(--bordure);
+}
+
+.fiche-vide {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.fiche-vide p {
+  color: var(--texte-doux);
+  margin: 12px 0 28px;
+}
+
+@media (max-width: 860px) {
+  .fiche {
+    padding: 24px 20px 56px;
+  }
+  .fiche-grille {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .infos h1 {
+    font-size: 30px;
+  }
+  .prix {
+    font-size: 36px;
+  }
+}
