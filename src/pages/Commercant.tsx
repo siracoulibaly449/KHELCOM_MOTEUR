@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import './Commercant.css'
+import AjouterMoteur from '../components/AjouterMoteur'
 
 type Ligne = {
   id: number
@@ -18,6 +19,7 @@ function Commercant() {
   const navigate = useNavigate()
   const [lignes, setLignes] = useState<Ligne[]>([])
   const [pret, setPret] = useState(false)
+  const [ajoutOuvert, setAjoutOuvert] = useState(false)
 
   async function charger() {
     const { data, error } = await supabase
@@ -76,15 +78,29 @@ function Commercant() {
       <aside className="admin-menu">
         <div className="admin-logo">MOTEURS<span>.</span>PRO</div>
         <a className="actif">Tableau de bord</a>
-        <a>Catalogue</a>
-        <a>Stocks</a>
-        <a>Commandes</a>
-        <a>Clients et retours</a>
+        <Link to="/catalogue">Voir le catalogue client</Link>
+        <span className="bientot">Stocks (bientôt)</span>
+        <span className="bientot">Commandes (bientôt)</span>
+        <span className="bientot">Clients et retours (bientôt)</span>
         <button className="admin-deconnexion" onClick={deconnexion}>Se déconnecter</button>
       </aside>
 
       <main className="admin-principal">
-        <h1>Mes moteurs</h1>
+        <div className="entete-page">
+          <h1>Mes moteurs</h1>
+          {!ajoutOuvert && (
+            <button className="bouton-ajouter" onClick={() => setAjoutOuvert(true)}>
+              + Ajouter un moteur
+            </button>
+          )}
+        </div>
+
+        {ajoutOuvert && (
+          <AjouterMoteur
+            onAjoute={() => { setAjoutOuvert(false); charger() }}
+            onAnnuler={() => setAjoutOuvert(false)}
+          />
+        )}
 
         <div className="indicateurs">
           <div><span>Total</span><strong>{lignes.length}</strong></div>

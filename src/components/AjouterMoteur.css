@@ -1,0 +1,85 @@
+.formulaire {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.formulaire h2 {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.grille-champs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.grille-champs label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
+
+.grille-champs input,
+.grille-champs select {
+  padding: 12px;
+  min-height: 46px;
+  background: var(--fond);
+  color: var(--texte);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.actions-formulaire {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.actions-formulaire .bouton-principal {
+  min-height: 48px;
+  padding: 13px 22px;
+  background: var(--accent);
+  color: #0E0F12;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.actions-formulaire .bouton-principal:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.actions-formulaire .bouton-secondaire {
+  min-height: 48px;
+  padding: 13px 22px;
+  background: transparent;
+  color: var(--texte);
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.info {
+  margin: 0;
+  color: var(--texte-doux);
+  font-size: 14px;
+}
+
+.erreur {
+  margin: 0;
+  color: #FF7A7A;
+  font-size: 14px;
+}

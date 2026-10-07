@@ -1,4 +1,6 @@
 .stock {
+  max-width: 1280px;
+  margin: 0 auto;
   padding: 56px 40px 72px;
 }
 
@@ -12,6 +14,8 @@
 }
 
 .stock h2 {
+  font-family: var(--police-titre);
+  font-weight: 400;
   font-size: 40px;
 }
 
@@ -28,6 +32,21 @@
 
 .stock-grille {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .stock-grille {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .stock {
+    padding: 40px 20px 56px;
+  }
+  .stock-grille {
+    grid-template-columns: 1fr;
+  }
 }

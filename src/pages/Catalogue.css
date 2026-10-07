@@ -1,0 +1,40 @@
+.catalogue {
+  padding: 40px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.catalogue-titre {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  font-size: 40px;
+  margin: 0 0 24px;
+}
+
+.catalogue-filtres {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+}
+
+.catalogue-grille {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .catalogue-grille {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .catalogue {
+    padding: 24px 20px;
+  }
+  .catalogue-grille {
+    grid-template-columns: 1fr;
+  }
+}

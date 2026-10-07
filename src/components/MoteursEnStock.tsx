@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import CarteMoteur from './CarteMoteur'
 import { supabase } from '../lib/supabase'
 import type { Moteur } from '../data/moteurs'
+import './MoteursEnStock.css'
+import { Link } from 'react-router-dom'
 
 function MoteursEnStock() {
   const [moteurs, setMoteurs] = useState<Moteur[]>([])
@@ -33,7 +35,7 @@ function MoteursEnStock() {
     <section className="stock">
       <div className="stock-entete">
         <h2>Moteurs <span className="accent">en stock</span></h2>
-        <a href="#" className="tout-voir">Tout voir →</a>
+        <Link to="/catalogue" className="tout-voir">Tout voir →</Link>
       </div>
       {chargement ? (
         <p>Chargement des moteurs…</p>

@@ -1,5 +1,7 @@
 import './Hero.css'
 import RechercheVehicule from './RechercheVehicule'
+import { Link } from 'react-router-dom'
+
 
 function Hero() {
   return (
@@ -18,7 +20,7 @@ function Hero() {
           </p>
           <div className="boutons">
             <button className="bouton-principal">Trouver ma pièce</button>
-            <button className="bouton-secondaire">Voir les moteurs</button>
+            <Link to="/catalogue" className="bouton-secondaire">Voir les moteurs</Link>
           </div>
         </div>
         <RechercheVehicule />

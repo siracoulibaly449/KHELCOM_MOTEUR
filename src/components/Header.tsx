@@ -1,4 +1,5 @@
 import './Header.css'
+import { Link } from 'react-router-dom'
 
 const liens = ['Moteurs', 'Pièces', 'Occasion', 'Garanties', 'Contact']
 
@@ -10,13 +11,15 @@ function Header() {
       </div>
 
       <nav className="navigation">
-        {liens.map((lien) => (
-          <a key={lien} href="#">{lien}</a>
-        ))}
+        <Link to="/catalogue">Moteurs</Link>
+        <a href="#">Pièces</a>
+        <a href="#">Occasion</a>
+        <a href="#">Garanties</a>
+        <a href="#">Contact</a>
       </nav>
 
       <div className="actions">
-        <a href="#" className="connexion">Connexion</a>
+        <Link to="/connexion" className="connexion">Connexion</Link>
         <button className="panier">Panier · 0</button>
       </div>
     </header>
