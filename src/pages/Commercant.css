@@ -1,0 +1,133 @@
+.admin {
+  display: flex;
+  min-height: 100vh;
+}
+
+.admin-menu {
+  width: 240px;
+  flex: 0 0 240px;
+  padding: 28px 20px;
+  border-right: 1px solid var(--bordure);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-logo {
+  font-family: var(--police-titre);
+  font-size: 22px;
+  margin-bottom: 24px;
+}
+
+.admin-logo span {
+  color: var(--accent);
+}
+
+.admin-menu a {
+  padding: 12px 14px;
+  border-radius: 12px;
+  color: var(--texte-doux);
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.admin-menu a.actif {
+  background: var(--accent);
+  color: #0E0F12;
+  font-weight: 700;
+}
+
+.admin-deconnexion {
+  margin-top: auto;
+  min-height: 44px;
+  background: transparent;
+  color: var(--texte-doux);
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.admin-principal {
+  flex: 1;
+  min-width: 0;
+  padding: 28px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.admin-principal h1 {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  font-size: 32px;
+}
+
+.indicateurs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+}
+
+.indicateurs div {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.indicateurs span {
+  font-size: 13px;
+  color: var(--texte-doux);
+}
+
+.indicateurs strong {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  font-size: 30px;
+}
+
+.tableau {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.tableau-tete,
+.tableau-ligne {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.2fr;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 20px;
+}
+
+.tableau-tete {
+  font-size: 12px;
+  color: var(--texte-doux);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--bordure);
+}
+
+.tableau-ligne {
+  border-bottom: 1px solid var(--bordure);
+}
+
+.sous-ligne {
+  font-size: 13px;
+  color: var(--texte-doux);
+}
+
+.tableau-ligne select {
+  min-height: 40px;
+  padding: 8px 10px;
+  background: var(--fond);
+  color: var(--texte);
+  border: 1px solid var(--bordure);
+  border-radius: 10px;
+  font-weight: 600;
+}

@@ -1,22 +1,15 @@
-import Header from './components/Header'
-import Hero from './components/Hero'
-import Bandeau from './components/Bandeau'
-import MoteursEnStock from './components/MoteursEnStock'
-import Confiance from './components/Confiance'
-import Footer from './components/Footer'
+import { Routes, Route } from 'react-router-dom'
+import Accueil from './pages/Accueil'
+import Connexion from './pages/Connexion'
+import Commercant from './pages/Commercant'
 
 function App() {
   return (
-    <>
-      <Header />
-      <main>
-        <Hero />
-      </main>
-      <Bandeau />
-      <MoteursEnStock />
-      <Confiance />
-      <Footer />
-    </>
+    <Routes>
+      <Route path="/" element={<Accueil />} />
+      <Route path="/connexion" element={<Connexion />} />
+      <Route path="/commercant" element={<Commercant />} />
+    </Routes>
   )
 }
 
