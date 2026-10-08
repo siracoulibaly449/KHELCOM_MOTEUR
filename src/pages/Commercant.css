@@ -156,3 +156,6 @@
   font-size: 15px;
   cursor: default;
 }
+.admin-menu a {
+  cursor: pointer;
+}

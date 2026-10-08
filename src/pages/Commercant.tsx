@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import './Commercant.css'
 import AjouterMoteur from '../components/AjouterMoteur'
+import ListeCommandes from '../components/ListeCommandes'
 import { formatPrix } from '../lib/format'
 
 type Ligne = {
@@ -21,6 +22,7 @@ function Commercant() {
   const [lignes, setLignes] = useState<Ligne[]>([])
   const [ajoutOuvert, setAjoutOuvert] = useState(false)
   const [message, setMessage] = useState('')
+  const [vue, setVue] = useState<'moteurs' | 'commandes'>('moteurs')
 
   const charger = useCallback(async () => {
     const { data, error } = await supabase
@@ -95,60 +97,69 @@ function Commercant() {
     <div className="admin">
       <aside className="admin-menu">
         <div className="admin-logo">MOTEURS<span>.</span>PRO</div>
-        <a className="actif">Tableau de bord</a>
+        <a className={vue === 'moteurs' ? 'actif' : ''} onClick={() => setVue('moteurs')}>Tableau de bord</a>
         <Link to="/catalogue">Voir le catalogue client</Link>
         <span className="bientot">Stocks (bientôt)</span>
-        <span className="bientot">Commandes (bientôt)</span>
+        <a className={vue === 'commandes' ? 'actif' : ''} onClick={() => setVue('commandes')}>Commandes</a>
         <span className="bientot">Clients et retours (bientôt)</span>
         <button className="admin-deconnexion" onClick={deconnexion}>Se déconnecter</button>
       </aside>
 
       <main className="admin-principal">
-        <div className="entete-page">
-          <h1>Mes moteurs</h1>
-          {!ajoutOuvert && (
-            <button className="bouton-ajouter" onClick={() => setAjoutOuvert(true)}>
-              + Ajouter un moteur
-            </button>
-          )}
-        </div>
-
-        {message && <p className="erreur">{message}</p>}
-
-        {ajoutOuvert && (
-          <AjouterMoteur
-            onAjoute={() => { setAjoutOuvert(false); charger() }}
-            onAnnuler={() => setAjoutOuvert(false)}
-          />
-        )}
-
-        <div className="indicateurs">
-          <div><span>Total</span><strong>{lignes.length}</strong></div>
-          <div><span>Disponibles</span><strong style={{ color: 'var(--succes)' }}>{compte('Disponible')}</strong></div>
-          <div><span>En préparation</span><strong style={{ color: 'var(--ambre)' }}>{compte('En préparation')}</strong></div>
-          <div><span>Vendus</span><strong style={{ color: 'var(--bleu)' }}>{compte('Vendu')}</strong></div>
-        </div>
-
-        <section className="tableau">
-          <div className="tableau-tete">
-            <span>Moteur</span><span>Prix</span><span>Statut</span>
-          </div>
-          {lignes.map((l) => (
-            <div key={l.id} className="tableau-ligne">
-              <div>
-                <strong>{l.nom}</strong>
-                <div className="sous-ligne">Code {l.code} · {l.etat}</div>
-              </div>
-              <span>{formatPrix(l.prix)}</span>
-              <select
-                value={l.disponibilite}
-                onChange={(e) => changerStatut(l, e.target.value)}
-              >
-                {statuts.map((s) => <option key={s}>{s}</option>)}
-              </select>
+        {vue === 'commandes' ? (
+          <>
+            <h1>Commandes</h1>
+            <ListeCommandes />
+          </>
+        ) : (
+          <>
+            <div className="entete-page">
+              <h1>Mes moteurs</h1>
+              {!ajoutOuvert && (
+                <button className="bouton-ajouter" onClick={() => setAjoutOuvert(true)}>
+                  + Ajouter un moteur
+                </button>
+              )}
             </div>
-          ))}
-        </section>
+
+            {message && <p className="erreur">{message}</p>}
+
+            {ajoutOuvert && (
+              <AjouterMoteur
+                onAjoute={() => { setAjoutOuvert(false); charger() }}
+                onAnnuler={() => setAjoutOuvert(false)}
+              />
+            )}
+
+            <div className="indicateurs">
+              <div><span>Total</span><strong>{lignes.length}</strong></div>
+              <div><span>Disponibles</span><strong style={{ color: 'var(--succes)' }}>{compte('Disponible')}</strong></div>
+              <div><span>En préparation</span><strong style={{ color: 'var(--ambre)' }}>{compte('En préparation')}</strong></div>
+              <div><span>Vendus</span><strong style={{ color: 'var(--bleu)' }}>{compte('Vendu')}</strong></div>
+            </div>
+
+            <section className="tableau">
+              <div className="tableau-tete">
+                <span>Moteur</span><span>Prix</span><span>Statut</span>
+              </div>
+              {lignes.map((l) => (
+                <div key={l.id} className="tableau-ligne">
+                  <div>
+                    <strong>{l.nom}</strong>
+                    <div className="sous-ligne">Code {l.code} · {l.etat}</div>
+                  </div>
+                  <span>{formatPrix(l.prix)}</span>
+                  <select
+                    value={l.disponibilite}
+                    onChange={(e) => changerStatut(l, e.target.value)}
+                  >
+                    {statuts.map((s) => <option key={s}>{s}</option>)}
+                  </select>
+                </div>
+              ))}
+            </section>
+          </>
+        )}
       </main>
     </div>
   )
