@@ -54,3 +54,49 @@ button, input, select {
   line-height: 1.6;
   color: var(--texte-doux);
 }
+.lien-discret {
+  color: var(--accent-clair);
+  font-size: 14px;
+  text-decoration: none;
+  margin-top: 12px;
+  display: inline-block;
+}
+
+.lien-discret:hover {
+  text-decoration: underline;
+}
+
+.page-simple form {
+  margin-top: 24px;
+}
+
+.page-simple form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
+
+.page-simple form input {
+  padding: 12px;
+  min-height: 46px;
+  background: var(--carte);
+  color: var(--texte);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.page-simple .bouton-ajouter {
+  min-height: 48px;
+  padding: 13px 22px;
+  background: var(--accent);
+  color: #0E0F12;
+  border: 0;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  align-self: flex-start;
+}

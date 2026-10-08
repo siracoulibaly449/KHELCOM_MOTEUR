@@ -192,3 +192,7 @@
   color: var(--succes);
   margin: 0;
 }
+.admin-menu a[href] {
+  color: var(--texte-doux);
+  text-decoration: none;
+}
