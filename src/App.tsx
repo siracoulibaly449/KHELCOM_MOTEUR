@@ -10,6 +10,9 @@ import RequireCommercant from './components/RequireCommercant'
 import Panier from './pages/Panier'
 import Commande from './pages/Commande'
 import Confirmation from './pages/Confirmation'
+import MonCompte from './pages/MonCompte'
+import MotDePasseOublie from './pages/MotDePasseOublie'
+import NouveauMotDePasse from './pages/NouveauMotDePasse'
 
 function App() {
   return (
@@ -34,6 +37,9 @@ function App() {
       } />
       <Route path="/commande" element={<Commande />} />
       <Route path="/confirmation/:reference" element={<Confirmation />} />
+      <Route path="/commercant/compte" element={<RequireCommercant><MonCompte /></RequireCommercant>} />
+      <Route path="/mot-de-passe-oublie" element={<MotDePasseOublie />} />
+      <Route path="/nouveau-mot-de-passe" element={<NouveauMotDePasse />} />
     </Routes>
   )
 }

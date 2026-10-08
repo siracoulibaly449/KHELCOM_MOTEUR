@@ -159,3 +159,36 @@
 .admin-menu a {
   cursor: pointer;
 }
+.formulaire {
+  max-width: 480px;
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formulaire label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
+
+.formulaire input {
+  padding: 12px;
+  min-height: 46px;
+  background: var(--fond);
+  color: var(--texte);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+}
+
+.succes {
+  color: var(--succes);
+  margin: 0;
+}

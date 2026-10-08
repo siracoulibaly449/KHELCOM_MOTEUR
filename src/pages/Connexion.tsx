@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 
 function Connexion() {
@@ -36,6 +36,7 @@ function Connexion() {
         </label>
         {erreur && <p style={{ color: '#FF7A7A', margin: 0 }}>{erreur}</p>}
         <button type="submit" style={bouton}>Se connecter</button>
+        <Link to="/mot-de-passe-oublie" className="tout-voir">Mot de passe oublié ?</Link>
       </form>
     </main>
   )
