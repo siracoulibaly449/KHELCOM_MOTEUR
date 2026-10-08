@@ -3,6 +3,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { usePanier } from '../context/usePanier'
 import './Panier.css'
+import { formatPrix } from '../lib/format'
 
 function Panier() {
   const { articles, total, retirer } = usePanier()
@@ -30,7 +31,7 @@ function Panier() {
                     <Link to={`/moteur/${a.id}`}>{a.nom}</Link>
                     <span>Code {a.code}</span>
                   </div>
-                  <strong>{a.prix.toLocaleString('fr-FR')} €</strong>
+                  <strong>{formatPrix(a.prix)}</strong>
                   <button className="retirer" onClick={() => retirer(a.id)}>Retirer</button>
                 </li>
               ))}
@@ -44,7 +45,7 @@ function Panier() {
               </div>
               <div className="recap-ligne total">
                 <span>Total</span>
-                <strong>{total.toLocaleString('fr-FR')} €</strong>
+                <strong>{formatPrix(total)}</strong>
               </div>
               <p className="aide">Les frais de livraison seront calculés à l'étape suivante.</p>
               <button className="bouton-lien principal" disabled>

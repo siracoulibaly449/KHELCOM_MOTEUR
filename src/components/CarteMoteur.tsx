@@ -1,6 +1,7 @@
 import './CarteMoteur.css'
 import type { Moteur, Etat } from '../data/moteurs'
 import { Link } from 'react-router-dom'
+import { formatPrix } from '../lib/format'
 
 const couleurs: Record<Etat, string> = {
   Neuf: 'var(--succes)',
@@ -23,7 +24,7 @@ function CarteMoteur({ moteur }: { moteur: Moteur }) {
         <h3>{moteur.nom}</h3>
         <p className="compatibilite">Code {moteur.code} · {moteur.compatibilite}</p>
         <div className="carte-bas">
-          <span className="prix">{moteur.prix.toLocaleString('fr-FR')} €</span>
+          <span className="prix">{formatPrix(moteur.prix)}</span>
           <Link to={`/moteur/${moteur.id}`} className="voir-fiche">Voir la fiche</Link>
         </div>
       </div>

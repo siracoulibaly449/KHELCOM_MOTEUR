@@ -5,6 +5,7 @@ import Footer from '../components/Footer'
 import { supabase } from '../lib/supabase'
 import './FicheMoteur.css'
 import { usePanier } from '../context/usePanier'
+import { formatPrix } from '../lib/format'
 
 type Fiche = {
   id: number
@@ -97,7 +98,7 @@ function FicheMoteur() {
                 <h1>{fiche.nom}</h1>
                 <p className="code">Code moteur : {fiche.code}</p>
 
-                <p className="prix">{fiche.prix.toLocaleString('fr-FR')} €</p>
+                <p className="prix">{formatPrix(fiche.prix)}</p>
 
                 {fiche.disponibilite === 'En préparation' && (
                   <p className="bientot-dispo">Bientôt disponible : ce moteur ne peut pas encore être commandé.</p>

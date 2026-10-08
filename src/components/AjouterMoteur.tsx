@@ -80,7 +80,7 @@ function AjouterMoteur({ onAjoute, onAnnuler }: Props) {
         <label>Compatibilité
           <input required value={compatibilite} onChange={(e) => setCompatibilite(e.target.value)} placeholder="ex. Golf VI, Passat B7" />
         </label>
-        <label>Prix (€)
+        <label>Prix (FCFA)
           <input required type="number" min="0" value={prix} onChange={(e) => setPrix(e.target.value)} />
         </label>
         <label>Kilométrage (occasion)

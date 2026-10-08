@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import './Commercant.css'
 import AjouterMoteur from '../components/AjouterMoteur'
+import { formatPrix } from '../lib/format'
 
 type Ligne = {
   id: number
@@ -138,7 +139,7 @@ function Commercant() {
                 <strong>{l.nom}</strong>
                 <div className="sous-ligne">Code {l.code} · {l.etat}</div>
               </div>
-              <span>{l.prix.toLocaleString('fr-FR')} €</span>
+              <span>{formatPrix(l.prix)}</span>
               <select
                 value={l.disponibilite}
                 onChange={(e) => changerStatut(l, e.target.value)}
