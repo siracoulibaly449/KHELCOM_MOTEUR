@@ -5,6 +5,7 @@ import { usePanier } from '../context/usePanier'
 import './Panier.css'
 import { formatPrix } from '../lib/format'
 
+
 function Panier() {
   const { articles, total, retirer } = usePanier()
 
@@ -48,9 +49,7 @@ function Panier() {
                 <strong>{formatPrix(total)}</strong>
               </div>
               <p className="aide">Les frais de livraison seront calculés à l'étape suivante.</p>
-              <button className="bouton-lien principal" disabled>
-                Passer la commande (bientôt)
-              </button>
+              <Link to="/commande" className="bouton-lien principal">Passer la commande</Link>
             </aside>
           </div>
         )}

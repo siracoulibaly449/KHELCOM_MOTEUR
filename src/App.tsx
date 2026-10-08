@@ -8,6 +8,8 @@ import Garanties from './pages/Garanties'
 import Contact from './pages/Contact'
 import RequireCommercant from './components/RequireCommercant'
 import Panier from './pages/Panier'
+import Commande from './pages/Commande'
+import Confirmation from './pages/Confirmation'
 
 function App() {
   return (
@@ -30,6 +32,8 @@ function App() {
           <a href="/" className="tout-voir">Retour à l'accueil</a>
         </main>
       } />
+      <Route path="/commande" element={<Commande />} />
+      <Route path="/confirmation/:reference" element={<Confirmation />} />
     </Routes>
   )
 }

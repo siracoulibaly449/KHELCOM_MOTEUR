@@ -1,0 +1,141 @@
+.commande-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 40px 72px;
+}
+
+.commande-page h1 {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  font-size: 40px;
+  margin: 0 0 32px;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.texte {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--texte-doux);
+  max-width: 640px;
+}
+
+.commande-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 32px;
+  align-items: start;
+}
+
+.commande-form {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.commande-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
+
+.commande-form input,
+.commande-form select,
+.commande-form textarea {
+  padding: 12px;
+  min-height: 46px;
+  background: var(--fond);
+  color: var(--texte);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.commande-form textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.recap {
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recap h2 {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  font-size: 22px;
+  margin: 0 0 6px;
+}
+
+.recap-ligne {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--texte-doux);
+  font-size: 14px;
+}
+
+.recap-ligne.total {
+  padding-top: 12px;
+  border-top: 1px solid var(--bordure);
+  color: var(--texte);
+  font-size: 18px;
+}
+
+.aide {
+  margin: 0;
+  font-size: 13px;
+  color: var(--texte-doux);
+}
+
+.erreur {
+  margin: 0;
+  color: #FF7A7A;
+  font-size: 14px;
+}
+
+.bouton-lien {
+  min-height: 52px;
+  padding: 16px 28px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+}
+
+.bouton-lien.principal {
+  background: var(--accent);
+  color: #0E0F12;
+}
+
+.bouton-lien.principal:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+@media (max-width: 860px) {
+  .commande-grille {
+    grid-template-columns: 1fr;
+  }
+}
