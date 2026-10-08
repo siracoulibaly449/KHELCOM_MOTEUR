@@ -4,6 +4,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { supabase } from '../lib/supabase'
 import './FicheMoteur.css'
+import { usePanier } from '../context/usePanier'
 
 type Fiche = {
   id: number
@@ -23,6 +24,8 @@ function FicheMoteur() {
   const [fiche, setFiche] = useState<Fiche | null>(null)
   const [chargement, setChargement] = useState(true)
   const [photoActive, setPhotoActive] = useState(0)
+  const { ajouter, articles } = usePanier()
+  const dejaDansPanier = fiche ? articles.some((a) => a.id === fiche.id) : false
 
   useEffect(() => {
     let annule = false
@@ -118,8 +121,20 @@ function FicheMoteur() {
                 </div>
 
                 <div className="actions-fiche">
-                  <button className="fiche-bouton principal" disabled={fiche.disponibilite !== 'Disponible'}>
-                    Ajouter au panier
+                  <button
+                    className="fiche-bouton principal"
+                    disabled={fiche.disponibilite !== 'Disponible' || dejaDansPanier}
+                    onClick={() =>
+                      ajouter({
+                        id: fiche.id,
+                        nom: fiche.nom,
+                        code: fiche.code,
+                        prix: fiche.prix,
+                        photo: fiche.photos?.[0] ?? null,
+                      })
+                    }
+                  >
+                    {dejaDansPanier ? 'Déjà dans le panier' : 'Ajouter au panier'}
                   </button>
                   <Link to="/contact" className="fiche-bouton secondaire">Poser une question</Link>
                 </div>

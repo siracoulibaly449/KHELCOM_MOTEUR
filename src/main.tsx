@@ -3,11 +3,14 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App'
+import { PanierProvider } from './context/PanierContext'
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
-    <BrowserRouter>
+ <StrictMode>
+  <BrowserRouter>
+    <PanierProvider>
       <App />
-    </BrowserRouter>
-  </StrictMode>,
+    </PanierProvider>
+  </BrowserRouter>
+</StrictMode>
 )

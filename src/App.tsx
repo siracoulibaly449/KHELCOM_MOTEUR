@@ -7,6 +7,7 @@ import FicheMoteur from './pages/FicheMoteur'
 import Garanties from './pages/Garanties'
 import Contact from './pages/Contact'
 import RequireCommercant from './components/RequireCommercant'
+import Panier from './pages/Panier'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/moteur/:id" element={<FicheMoteur />} />
       <Route path="/garanties" element={<Garanties />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/panier" element={<Panier />} />
       <Route path="*" element={
         <main className="page-simple">
           <h1>Page introuvable</h1>
