@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -7,7 +7,7 @@ import { supabase } from '../lib/supabase'
 import { formatPrix } from '../lib/format'
 import './Commande.css'
 
-const modes = ['Wave', 'Orange Money', 'Espèces à la livraison', 'Virement']
+const modes = ['Wave', 'Espèces']
 
 function Commande() {
   const { articles, total, vider } = usePanier()
@@ -16,8 +16,27 @@ function Commande() {
   const [telephone, setTelephone] = useState('')
   const [adresse, setAdresse] = useState('')
   const [mode, setMode] = useState(modes[0])
+  const [accepte, setAccepte] = useState(false)
+  const [params, setParams] = useState<Record<string, string>>({})
   const [envoi, setEnvoi] = useState(false)
   const [erreur, setErreur] = useState('')
+
+  useEffect(() => {
+    let annule = false
+    supabase
+      .from('parametres')
+      .select('cle, valeur')
+      .then(({ data }) => {
+        if (annule || !data) return
+        setParams(Object.fromEntries(data.map((p) => [p.cle, p.valeur])))
+      })
+    return () => {
+      annule = true
+    }
+  }, [])
+
+  const pourcentage = Number(params.acompte_pourcentage ?? 0)
+  const acompte = Math.round((total * pourcentage) / 100)
 
   async function valider(e: FormEvent) {
     e.preventDefault()
@@ -39,9 +58,9 @@ function Commande() {
       return
     }
 
-    const commande = data as { reference: string; total: number }
+    const commande = data as { reference: string; total: number; acompte: number; expire_le: string }
     vider()
-    navigate(`/confirmation/${commande.reference}`, { state: { total: commande.total } })
+    navigate(`/confirmation/${commande.reference}`, { state: commande })
   }
 
   if (articles.length === 0) {
@@ -61,7 +80,7 @@ function Commande() {
     <>
       <Header />
       <main className="commande-page">
-        <h1>Finaliser ma <span className="accent">commande</span></h1>
+        <h1>Réserver <span className="accent">mon moteur</span></h1>
 
         <div className="commande-grille">
           <form className="commande-form" onSubmit={valider}>
@@ -71,23 +90,40 @@ function Commande() {
             <label>Téléphone
               <input required type="tel" placeholder="+221 …" value={telephone} onChange={(e) => setTelephone(e.target.value)} />
             </label>
-            <label>Adresse de livraison
+            <label>Adresse ou lieu de retrait
               <textarea required rows={3} value={adresse} onChange={(e) => setAdresse(e.target.value)} />
             </label>
-            <label>Mode de paiement
+            <label>Mode de paiement de l'acompte
               <select value={mode} onChange={(e) => setMode(e.target.value)}>
                 {modes.map((m) => <option key={m}>{m}</option>)}
               </select>
             </label>
 
-            <p className="aide">
-              Votre commande sera confirmée par téléphone avant le paiement et l'expédition.
-            </p>
+            {Object.keys(params).length > 0 && (
+              <div className="info-acompte">
+                <p>
+                  Pour réserver, un acompte de <strong>{pourcentage} %</strong> est demandé,
+                  soit <strong>{formatPrix(acompte)}</strong>.
+                </p>
+                <p>
+                  La réservation est valable <strong>{params.duree_reservation_jours} jours</strong> pour
+                  régler le solde. Passé ce délai, le moteur est remis en vente.
+                </p>
+              </div>
+            )}
+
+            <label className="accord">
+              <input type="checkbox" checked={accepte} onChange={(e) => setAccepte(e.target.checked)} />
+              <span>
+                Je comprends qu'il s'agit d'une vente d'occasion, sans garantie ni retour,
+                et que l'acompte est demandé pour réserver le moteur.
+              </span>
+            </label>
 
             {erreur && <p className="erreur">{erreur}</p>}
 
-            <button type="submit" className="bouton-lien principal" disabled={envoi}>
-              {envoi ? 'Envoi en cours…' : 'Confirmer la commande'}
+            <button type="submit" className="bouton-lien principal" disabled={envoi || !accepte}>
+              {envoi ? 'Envoi en cours…' : 'Confirmer la réservation'}
             </button>
           </form>
 
@@ -103,7 +139,11 @@ function Commande() {
               <span>Total</span>
               <strong>{formatPrix(total)}</strong>
             </div>
-            <p className="aide">Frais de livraison confirmés par téléphone.</p>
+            <div className="recap-ligne">
+              <span>Acompte à payer</span>
+              <span>{formatPrix(acompte)}</span>
+            </div>
+            <p className="aide">Vente sans garantie ni retour.</p>
           </aside>
         </div>
       </main>

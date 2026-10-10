@@ -11,13 +11,17 @@ type Fiche = {
   id: number
   nom: string
   code: string
-  etat: string
   compatibilite: string
   prix: number
   kilometrage: number | null
   disponibilite: string
   photos: string[] | null
   description: string | null
+  vehicule_origine: string | null
+  pays_origine: string | null
+  statut_titre: string | null
+  compression: string | null
+  historique: string | null
 }
 
 function FicheMoteur() {
@@ -31,9 +35,10 @@ function FicheMoteur() {
   useEffect(() => {
     let annule = false
 
+    // Les coûts d'achat et d'import ne sont jamais sélectionnés ici : ils restent internes
     supabase
       .from('moteurs')
-      .select('id, nom, code, etat, compatibilite, prix, kilometrage, disponibilite, photos, description')
+      .select('id, nom, code, compatibilite, prix, kilometrage, disponibilite, photos, description, vehicule_origine, pays_origine, statut_titre, compression, historique')
       .eq('id', Number(id))
       .maybeSingle()
       .then(({ data, error }) => {
@@ -94,18 +99,39 @@ function FicheMoteur() {
               </div>
 
               <div className="infos">
-                <span className="etat">{fiche.etat}{fiche.kilometrage ? ` · ${fiche.kilometrage.toLocaleString('fr-FR')} km` : ''}</span>
+                <span className="etat">
+                  Occasion{fiche.kilometrage ? ` · ${fiche.kilometrage.toLocaleString('fr-FR')} km` : ''}
+                </span>
                 <h1>{fiche.nom}</h1>
                 <p className="code">Code moteur : {fiche.code}</p>
 
                 <p className="prix">{formatPrix(fiche.prix)}</p>
 
-                {fiche.disponibilite === 'En préparation' && (
-                  <p className="bientot-dispo">Bientôt disponible : ce moteur ne peut pas encore être commandé.</p>
+                {fiche.disponibilite === 'Réservé' && (
+                  <p className="bientot-dispo">Ce moteur est déjà réservé.</p>
                 )}
 
                 <div className="compatibilite">
-                  <h2>Véhicules compatibles</h2>
+                  <h2>Moteur d'occasion</h2>
+                  <p>
+                    Démonté d'un {fiche.vehicule_origine ?? 'véhicule'}
+                    {fiche.pays_origine ? `, origine ${fiche.pays_origine}` : ''}
+                    {fiche.kilometrage ? `, kilométrage d'origine ${fiche.kilometrage.toLocaleString('fr-FR')} km` : ''}.
+                  </p>
+                  {fiche.statut_titre && (
+                    <p>Titre du véhicule d'origine : <strong>{fiche.statut_titre}</strong>.</p>
+                  )}
+                  {fiche.statut_titre === 'Endommagé réparé' && (
+                    <p className="bientot-dispo">
+                      Ce véhicule a été déclaré endommagé avant réparation. Le moteur est vendu tel quel.
+                    </p>
+                  )}
+                  {fiche.compression && <p>Compression : {fiche.compression}</p>}
+                  {fiche.historique && <p>{fiche.historique}</p>}
+                </div>
+
+                <div className="compatibilite">
+                  <h2>Compatibilité</h2>
                   <p>{fiche.compatibilite}</p>
                   <p className="aide">Un doute sur la compatibilité ? Indiquez le numéro de châssis (VIN) lors de votre demande.</p>
                 </div>
@@ -118,7 +144,9 @@ function FicheMoteur() {
                 )}
 
                 <div className="garanties">
-                  <p>Garantie et retours : conditions indiquées sur la page <Link to="/garanties">Garanties</Link>.</p>
+                  <p>
+                    Vente d'occasion sans garantie ni retour. <Link to="/garanties">Conditions de vente</Link>.
+                  </p>
                 </div>
 
                 <div className="actions-fiche">
@@ -135,7 +163,7 @@ function FicheMoteur() {
                       })
                     }
                   >
-                    {dejaDansPanier ? 'Déjà dans le panier' : 'Ajouter au panier'}
+                    {dejaDansPanier ? 'Déjà dans le panier' : 'Réserver ce moteur'}
                   </button>
                   <Link to="/contact" className="fiche-bouton secondaire">Poser une question</Link>
                 </div>

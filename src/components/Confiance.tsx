@@ -1,9 +1,9 @@
 import './Confiance.css'
 
 const arguments_ = [
-  { titre: 'Compatibilité vérifiée', texte: "Un doute sur une référence ? Notre équipe valide avec vous avant l'achat." },
-  { titre: 'Garantie claire', texte: 'Durée et conditions affichées sur chaque fiche produit.' },
-  { titre: 'Retours simplifiés', texte: 'Procédure de retour en quelques étapes depuis votre compte.' },
+  { titre: 'Origine indiquée', texte: 'Véhicule d\'origine, kilométrage et statut du titre sur chaque fiche.' },
+  { titre: 'Réservation', texte: 'Réservez votre moteur avec un acompte. Les modalités sont indiquées à la commande.' },
+  { titre: 'Vente sans retour', texte: 'Vente d\'occasion sans garantie ni retour. Vérifiez la fiche avant de commander.' },
 ]
 
 function Confiance() {

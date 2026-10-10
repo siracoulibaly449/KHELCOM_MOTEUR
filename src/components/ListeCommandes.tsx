@@ -16,9 +16,11 @@ type Commande = {
   statut: string
   created_at: string
   commande_lignes: Ligne[]
+  acompte: number
+  expire_le: string | null
 }
 
-const statuts = ['En attente', 'Confirmée', 'Expédiée', 'Livrée', 'Annulée']
+const statuts = ['En attente', 'Acompte reçu', 'Confirmée', 'Livrée', 'Annulée', 'Expirée']
 
 function ListeCommandes() {
   const [commandes, setCommandes] = useState<Commande[]>([])
@@ -39,18 +41,20 @@ function ListeCommandes() {
   // Chargement initial
   useEffect(() => {
     let annule = false
-    supabase
-      .from('commandes')
-      .select('*, commande_lignes(id, nom, prix)')
-      .order('created_at', { ascending: false })
-      .then(({ data, error }) => {
-        if (annule) return
-        if (error) {
-          setMessage('Impossible de charger les commandes : ' + error.message)
-          return
-        }
-        setCommandes((data ?? []) as Commande[])
-      })
+    supabase.rpc('liberer_reservations_expirees').then(() =>
+      supabase
+        .from('commandes')
+        .select('*, commande_lignes(id, nom, prix)')
+        .order('created_at', { ascending: false })
+        .then(({ data, error }) => {
+          if (annule) return
+          if (error) {
+            setMessage('Impossible de charger les commandes : ' + error.message)
+            return
+          }
+          setCommandes((data ?? []) as Commande[])
+        })
+    )
     return () => {
       annule = true
     }
@@ -116,6 +120,11 @@ function ListeCommandes() {
             <div className="total">
               <span>Total</span>
               <strong>{formatPrix(c.total)}</strong>
+              <span>Acompte : {formatPrix(c.acompte)}</span>
+              <span>Reste à payer : {formatPrix(c.total - c.acompte)}</span>
+              {c.expire_le && c.statut === 'En attente' && (
+                <span>Acompte attendu avant le {new Date(c.expire_le).toLocaleDateString('fr-FR')}</span>
+              )}
             </div>
           </div>
         </article>

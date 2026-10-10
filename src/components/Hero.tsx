@@ -15,8 +15,8 @@ function Hero() {
             <span className="accent">La bonne pièce.</span>
           </h1>
           <p className="sous-titre">
-            Moteurs neufs, reconditionnés ou d'occasion, et pièces détachées.
-            Choisissez votre véhicule, on ne vous montre que ce qui lui va.
+            Moteurs d'occasion, avec le véhicule d'origine, le kilométrage et le statut du titre indiqués sur chaque fiche.
+            Réservez avec un acompte.
           </p>
           <div className="boutons">
             <button className="bouton-principal">Trouver ma pièce</button>

@@ -15,7 +15,7 @@ function Header() {
         <Link to="/catalogue">Moteurs</Link>
         <a href="#">Pièces</a>
         <a href="#">Occasion</a>
-        <Link to="/garanties">Garanties</Link>
+        <Link to="/garanties">Conditions</Link>
         <Link to="/contact">Contact</Link>
       </nav>
 

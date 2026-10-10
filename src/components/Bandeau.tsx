@@ -1,6 +1,5 @@
 import './Bandeau.css'
-
-const message = 'Livraison rapide · Garantie 12 mois · Compatibilité vérifiée · Retours simplifiés · Moteurs testés · '
+const message = 'Moteurs d\'occasion · Origine indiquée · Réservation avec acompte · Wave ou espèces · '
 
 function Bandeau() {
   return (

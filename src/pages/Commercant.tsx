@@ -15,7 +15,7 @@ type Ligne = {
   disponibilite: string
 }
 
-const statuts = ['Disponible', 'En préparation', 'Vendu']
+const statuts = ['Disponible', 'Réservé', 'En préparation', 'Vendu']
 
 function Commercant() {
   const navigate = useNavigate()
