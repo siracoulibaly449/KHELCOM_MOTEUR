@@ -13,34 +13,45 @@ import Confirmation from './pages/Confirmation'
 import MonCompte from './pages/MonCompte'
 import MotDePasseOublie from './pages/MotDePasseOublie'
 import NouveauMotDePasse from './pages/NouveauMotDePasse'
+import PanierFlottant from './components/PanierFlottant'
+import ConnexionFlottante from './components/ConnexionFlottante'
+import './responsive.css'
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Accueil />} />
-      <Route path="/connexion" element={<Connexion />} />
-      <Route
-        path="/commercant"
-        element={<RequireCommercant><Commercant /></RequireCommercant>}
-      />
-      <Route path="/catalogue" element={<Catalogue />} />
-      <Route path="/moteur/:id" element={<FicheMoteur />} />
-      <Route path="/garanties" element={<Garanties />} />
-      <Route path="/contact" element={<Contact />} />
-      <Route path="/panier" element={<Panier />} />
-      <Route path="*" element={
-        <main className="page-simple">
-          <h1>Page introuvable</h1>
-          <p>Cette page n'existe pas ou a été déplacée.</p>
-          <a href="/" className="tout-voir">Retour à l'accueil</a>
-        </main>
-      } />
-      <Route path="/commande" element={<Commande />} />
-      <Route path="/confirmation/:reference" element={<Confirmation />} />
-      <Route path="/commercant/compte" element={<RequireCommercant><MonCompte /></RequireCommercant>} />
-      <Route path="/mot-de-passe-oublie" element={<MotDePasseOublie />} />
-      <Route path="/nouveau-mot-de-passe" element={<NouveauMotDePasse />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<Accueil />} />
+        <Route path="/connexion" element={<Connexion />} />
+        <Route
+          path="/commercant"
+          element={<RequireCommercant><Commercant /></RequireCommercant>}
+        />
+        <Route
+          path="/commercant/compte"
+          element={<RequireCommercant><MonCompte /></RequireCommercant>}
+        />
+        <Route path="/catalogue" element={<Catalogue />} />
+        <Route path="/moteur/:id" element={<FicheMoteur />} />
+        <Route path="/garanties" element={<Garanties />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/panier" element={<Panier />} />
+        <Route path="/commande" element={<Commande />} />
+        <Route path="/confirmation/:reference" element={<Confirmation />} />
+        <Route path="/mot-de-passe-oublie" element={<MotDePasseOublie />} />
+        <Route path="/nouveau-mot-de-passe" element={<NouveauMotDePasse />} />
+        <Route path="*" element={
+          <main className="page-simple">
+            <h1>Page introuvable</h1>
+            <p>Cette page n'existe pas ou a été déplacée.</p>
+            <a href="/" className="tout-voir">Retour à l'accueil</a>
+          </main>
+        } />
+      </Routes>
+
+      <PanierFlottant />
+      <ConnexionFlottante />
+    </>
   )
 }
 

@@ -1,0 +1,194 @@
+.connexion-sticker {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+/* Bulle */
+.connexion-bulle {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: linear-gradient(160deg, #1A2420 0%, #0A0F0C 100%);
+  box-shadow:
+    inset 0 0 0 1px rgba(74, 222, 128, 0.35),
+    0 14px 34px -10px rgba(34, 197, 94, 0.45);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.connexion-bulle:hover {
+  transform: scale(1.06);
+  box-shadow:
+    inset 0 0 0 1px rgba(74, 222, 128, 0.6),
+    0 18px 40px -10px rgba(34, 197, 94, 0.6);
+}
+
+.connexion-bulle:focus-visible {
+  outline: 3px solid var(--accent-clair);
+  outline-offset: 4px;
+}
+
+/* Anneau vert qui pulse doucement */
+.bulle-anneau {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-clair);
+  opacity: 0.5;
+  animation: anneau 2.6s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes anneau {
+  0% { transform: scale(0.92); opacity: 0.6; }
+  70% { transform: scale(1.12); opacity: 0; }
+  100% { transform: scale(1.12); opacity: 0; }
+}
+
+.bulle-icone {
+  position: relative;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+  color: #22C55E;
+}
+
+.connexion-bulle.ouverte {
+  background: linear-gradient(160deg, #22C55E 0%, #16A34A 100%);
+}
+
+.connexion-bulle.ouverte .bulle-anneau {
+  display: none;
+}
+
+/* Carte d'aperçu */
+.connexion-carte {
+  width: min(300px, calc(100vw - 40px));
+  padding: 20px;
+  background: linear-gradient(180deg, var(--carte-haute) 0%, var(--surface) 70%);
+  border: 1px solid var(--bordure-vive);
+  border-radius: 22px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), var(--lueur);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: apparition 0.3s ease both;
+}
+
+@keyframes apparition {
+  from { opacity: 0; transform: translateY(12px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+.carte-entete {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.carte-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: var(--accent-texte);
+  font-family: var(--police-titre);
+  font-size: 18px;
+}
+
+.carte-titre {
+  font-family: var(--police-titre);
+  font-size: 16px;
+}
+
+.carte-etat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--texte-doux);
+}
+
+.point {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--texte-discret);
+}
+
+.point.en-ligne {
+  background: var(--accent-clair);
+  box-shadow: 0 0 8px var(--accent-clair);
+}
+
+.carte-texte {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--texte-doux);
+}
+
+.carte-bouton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #34D975 0%, var(--accent) 100%);
+  color: var(--accent-texte);
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 26px -10px rgba(34, 197, 94, 0.6);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.carte-bouton:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.carte-liens {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--bordure);
+}
+
+.carte-liens a {
+  font-size: 13px;
+  color: var(--texte-doux);
+  text-decoration: none;
+}
+
+.carte-liens a:hover {
+  color: var(--accent-clair);
+}
+
+@media (max-width: 640px) {
+  .connexion-sticker {
+    left: 16px;
+    bottom: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bulle-anneau,
+  .connexion-carte {
+    animation: none;
+  }
+}

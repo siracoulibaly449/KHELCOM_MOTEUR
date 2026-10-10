@@ -19,6 +19,7 @@ function Commercant() {
   const [vue, setVue] = useState<'moteurs' | 'commandes'>('moteurs')
   const [recherche, setRecherche] = useState('')
   const [filtreStatut, setFiltreStatut] = useState('Tous')
+  const [menuOuvert, setMenuOuvert] = useState(false)
 
   const lignesFiltrees = lignes.filter((l) => {
     const texte = `${l.nom} ${l.code} ${l.vehicule_origine ?? ''} ${l.vin ?? ''}`.toLowerCase()
@@ -68,6 +69,12 @@ function Commercant() {
     charger()
   }
 
+  function choisirVue(nouvelle: 'moteurs' | 'commandes') {
+    setVue(nouvelle)
+    setFormulaireOuvert(false)
+    setMenuOuvert(false)
+  }
+
   async function changerStatut(ligne: Moteur, nouveau: string) {
     setMessage('')
     const { data: { user } } = await supabase.auth.getUser()
@@ -110,14 +117,24 @@ function Commercant() {
 
   return (
     <div className="admin">
-      <aside className="admin-menu">
+      <button
+        type="button"
+        className="admin-burger"
+        aria-expanded={menuOuvert}
+        onClick={() => setMenuOuvert(true)}
+      >
+        ☰ Menu
+      </button>
+
+      {menuOuvert && <div className="admin-voile" onClick={() => setMenuOuvert(false)} />}
+
+      <aside className={`admin-menu ${menuOuvert ? 'ouvert' : ''}`}>
         <div className="admin-logo"><Logo /></div>
-        <a className={vue === 'moteurs' ? 'actif' : ''} onClick={() => setVue('moteurs')}>Tableau de bord</a>
-        <a className={vue === 'commandes' ? 'actif' : ''} onClick={() => setVue('commandes')}>Commandes</a>
+        <a className={vue === 'moteurs' ? 'actif' : ''} onClick={() => choisirVue('moteurs')}>Tableau de bord</a>
+        <a className={vue === 'commandes' ? 'actif' : ''} onClick={() => choisirVue('commandes')}>Commandes</a>
         <span className="bientot">Stocks (bientôt)</span>
         <span className="bientot">Clients et retours (bientôt)</span>
-        <Link to="/catalogue">Voir le catalogue</Link>
-        <Link to="/commercant/compte">Mon compte</Link>
+        <Link to="/commercant/compte" onClick={() => setMenuOuvert(false)}>Mon compte</Link>
         <button className="admin-deconnexion" onClick={deconnexion}>Se déconnecter</button>
       </aside>
 

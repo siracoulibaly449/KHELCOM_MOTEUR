@@ -1,0 +1,538 @@
+/* =========================================================
+   RESPONSIVE : fichier unique, chargé en dernier dans App.tsx
+   Points de rupture : 1600 / 1280 / 1024 / 860 / 640 / 520 / 380 px
+   ========================================================= */
+
+:root {
+  --gutter: clamp(16px, 4vw, 40px);
+  --maxw: 1280px;
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --maxw: 1440px;
+  }
+}
+
+/* ---------- Base ---------- */
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-width: 320px;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* 16 px évite le zoom automatique sur iPhone */
+button,
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+/* ---------- Conteneurs des pages publiques ---------- */
+.hero,
+.stock,
+.catalogue,
+.fiche,
+.commande-page,
+.panier-page {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+
+.hero {
+  padding: clamp(32px, 5vw, 72px) var(--gutter);
+}
+
+.stock {
+  padding: clamp(40px, 6vw, 72px) var(--gutter);
+}
+
+.catalogue {
+  padding: clamp(28px, 4vw, 40px) var(--gutter) clamp(48px, 6vw, 72px);
+}
+
+.fiche {
+  padding: clamp(20px, 3vw, 32px) var(--gutter) clamp(48px, 6vw, 72px);
+}
+
+.commande-page,
+.panier-page {
+  padding: clamp(24px, 4vw, 40px) var(--gutter) clamp(48px, 6vw, 72px);
+}
+
+.page-simple {
+  padding: clamp(48px, 8vw, 80px) var(--gutter);
+}
+
+.confiance {
+  margin: 0 var(--gutter) clamp(48px, 6vw, 72px);
+  padding: clamp(24px, 4vw, 48px);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 28px;
+}
+
+.pied {
+  padding: 28px var(--gutter) 36px;
+}
+
+/* ---------- Typographie fluide ---------- */
+.hero h1 {
+  font-size: clamp(38px, 6.4vw, 84px);
+  line-height: 1;
+}
+
+.hero .sous-titre {
+  font-size: clamp(16px, 1.6vw, 18px);
+}
+
+.stock h2 {
+  font-size: clamp(28px, 3.6vw, 40px);
+}
+
+.catalogue-titre,
+.commande-page h1,
+.panier-page h1 {
+  font-size: clamp(30px, 4.4vw, 40px);
+}
+
+.fiche .infos h1 {
+  font-size: clamp(28px, 3.4vw, 40px);
+}
+
+.fiche .prix {
+  font-size: clamp(26px, 3vw, 36px);
+}
+
+.page-simple h1 {
+  font-size: clamp(32px, 5vw, 48px);
+}
+
+.admin-principal h1 {
+  font-size: clamp(24px, 3vw, 32px);
+}
+
+/* ---------- Accueil ---------- */
+.hero-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: clamp(28px, 4vw, 48px);
+  align-items: center;
+}
+
+.boutons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.boutons a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 520px) {
+  .boutons {
+    flex-direction: column;
+  }
+  .boutons > * {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* ---------- Grilles de cartes ---------- */
+.stock-grille,
+.catalogue-grille {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 24px);
+}
+
+@media (max-width: 1024px) {
+  .stock-grille,
+  .catalogue-grille {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .stock-grille,
+  .catalogue-grille {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Catalogue ---------- */
+.catalogue-filtres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.catalogue-filtres input {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.catalogue-filtres select {
+  flex: 0 1 200px;
+}
+
+@media (max-width: 640px) {
+  .catalogue-filtres input,
+  .catalogue-filtres select {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+}
+
+/* ---------- Fiche moteur ---------- */
+.fiche-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(28px, 4vw, 48px);
+  align-items: start;
+}
+
+.actions-fiche {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+@media (max-width: 860px) {
+  .fiche-grille {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .actions-fiche .fiche-bouton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ---------- Panier ---------- */
+.panier-contenu {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  gap: clamp(24px, 3vw, 32px);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .panier-contenu {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .panier-ligne {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px;
+  }
+  .panier-photo {
+    width: 72px;
+    height: 56px;
+  }
+  .panier-ligne > strong,
+  .panier-ligne > .retirer {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+/* ---------- Réservation ---------- */
+.commande-grille {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
+  gap: clamp(24px, 3vw, 32px);
+  align-items: start;
+}
+
+.commande-form {
+  padding: clamp(20px, 3vw, 28px);
+}
+
+@media (max-width: 860px) {
+  .commande-grille {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .commande-form .bouton-lien {
+    width: 100%;
+  }
+}
+
+/* ---------- Formulaires ---------- */
+.grille-champs {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+
+.formulaire {
+  padding: clamp(18px, 3vw, 28px);
+  max-width: 100%;
+}
+
+.photos-actuelles {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 140px), 1fr));
+}
+
+@media (max-width: 520px) {
+  .actions-formulaire {
+    flex-direction: column;
+  }
+  .actions-formulaire > button {
+    width: 100%;
+  }
+}
+
+/* ---------- Liste des commandes (tableau de bord) ---------- */
+.commande-corps {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+}
+
+@media (max-width: 860px) {
+  .commande-corps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .total {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .commande-tete {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .commande-tete select {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+/* ---------- Tableau de bord ---------- */
+.admin {
+  min-height: 100vh;
+}
+
+.admin-burger,
+.admin-voile {
+  display: none;
+}
+
+/* Tablette et mobile : le menu devient un panneau qui glisse depuis la gauche */
+@media (max-width: 1024px) {
+  .admin {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .admin-principal {
+    min-width: 0;
+    width: 100%;
+    padding: 20px var(--gutter) 40px;
+  }
+
+  .admin-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 200;
+    width: min(290px, 85vw);
+    height: 100vh;
+    padding: 24px 20px;
+    border-right: 1px solid var(--bordure);
+    background: var(--surface);
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .admin-menu.ouvert {
+    transform: translateX(0);
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+  }
+
+  .admin-menu a,
+  .admin-menu .bientot {
+    display: flex;
+    align-items: center;
+    min-height: 46px;
+    padding: 10px 14px;
+    font-size: 15px;
+  }
+
+  .admin-logo {
+    margin-bottom: 28px;
+  }
+
+  .admin-deconnexion {
+    margin-top: auto;
+    min-height: 46px;
+  }
+
+  .admin-burger {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    min-height: 44px;
+    padding: 10px 16px;
+    background: transparent;
+    color: var(--texte);
+    border: 1px solid var(--bordure);
+    border-radius: 999px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  .admin-voile {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    background: rgba(0, 0, 0, 0.55);
+  }
+
+  .indicateurs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .tableau-tete,
+  .tableau-ligne {
+    grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .tableau-tete > :last-child,
+  .tableau-ligne > .actions-ligne {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Mobile : le tableau devient une liste de cartes */
+@media (max-width: 640px) {
+  .admin-principal {
+    padding: 16px var(--gutter) 40px;
+  }
+
+  .entete-page {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .entete-page .bouton-ajouter {
+    width: 100%;
+  }
+
+  .tableau {
+    background: transparent;
+    border: 0;
+    overflow: visible;
+  }
+
+  .tableau-tete {
+    display: none;
+  }
+
+  .tableau-ligne {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: var(--carte);
+    border: 1px solid var(--bordure);
+    border-radius: 18px;
+  }
+
+  .tableau-ligne > .miniature-liste {
+    width: 100%;
+    height: 170px;
+    border-radius: 14px;
+  }
+
+  .actions-ligne {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions-ligne select,
+  .bouton-modifier {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .barre-recherche input,
+  .barre-recherche select {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .formulaire {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .indicateurs {
+    gap: 8px;
+  }
+  .indicateurs > div {
+    padding: 12px;
+  }
+  .indicateurs strong {
+    font-size: 22px;
+  }
+}
+
+/* ---------- Pied de page ---------- */
+@media (max-width: 640px) {
+  .pied {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* ---------- Écrans tactiles : pas d'effet de survol bloqué ---------- */
+@media (hover: none) {
+  .carte:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--bordure);
+  }
+  .carte:hover .carte-image img {
+    transform: none;
+  }
+}
+
+/* ---------- Mouvement réduit ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

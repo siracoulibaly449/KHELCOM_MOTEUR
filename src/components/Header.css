@@ -1,35 +1,36 @@
 .entete {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 12, 11, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--bordure);
+}
+
+.entete-barre {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 16px;
-  padding: 22px 40px;
-}
-
-.logo {
-  font-family: var(--police-titre);
-  font-size: 26px;
-  letter-spacing: 0.5px;
-}
-
-.logo span {
-  color: var(--accent);
+  gap: 20px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 40px;
+  box-sizing: border-box;
 }
 
 .navigation {
   display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
+  gap: 28px;
   font-size: 15px;
   font-weight: 500;
-  color: var(--texte-doux);
 }
 
 .navigation a,
 .connexion {
   color: var(--texte-doux);
   text-decoration: none;
+  padding: 6px 0;
   transition: color 0.2s;
 }
 
@@ -41,57 +42,140 @@
 .actions {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
 }
 
-.panier {
-  background: var(--accent);
-  color: #0E0F12;
-  border: 0;
-  padding: 12px 20px;
-  min-height: 44px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-}
-
-.panier:hover {
-  background: var(--accent-clair);
-}
 .panier {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  background: var(--accent);
+  color: var(--accent-texte);
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 15px;
+  white-space: nowrap;
   text-decoration: none;
 }
-.entete {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: rgba(10, 12, 11, 0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--bordure);
+
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  cursor: pointer;
 }
 
-.logo span {
-  color: var(--accent-clair);
-}
-.navigation a {
-  position: relative;
-  padding: 6px 0;
-}
-
-.navigation a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
+.burger span {
+  display: block;
+  width: 18px;
   height: 2px;
-  background: var(--accent-clair);
-  transition: width 0.3s ease;
+  background: var(--texte);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-.navigation a:hover::after {
-  width: 100%;
+.burger[aria-expanded="true"] span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burger[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger[aria-expanded="true"] span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.menu-mobile {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .entete-barre {
+    padding: 14px 28px;
+  }
+  .navigation {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 860px) {
+  .navigation,
+  .connexion {
+    display: none;
+  }
+
+  .burger {
+    display: flex;
+  }
+
+  .menu-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 20px 20px;
+    border-top: 1px solid var(--bordure);
+    background: var(--fond);
+  }
+
+  .menu-mobile a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 12px;
+    border-radius: 12px;
+    color: var(--texte);
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .menu-mobile a:hover,
+  .menu-mobile a:active {
+    background: rgba(74, 222, 128, 0.08);
+  }
+}
+
+@media (min-width: 861px) {
+  .menu-mobile {
+    display: none !important;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .entete-barre {
+    padding: 8px 20px;
+  }
+  .menu-mobile {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+}
+.bulle-entete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--bordure-vive);
+  background: var(--surface);
+  color: var(--texte);
+  font-size: 20px;
+  text-decoration: none;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.bulle-entete:hover {
+  transform: scale(1.06);
+  border-color: var(--accent);
 }
