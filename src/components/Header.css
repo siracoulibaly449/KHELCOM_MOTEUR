@@ -64,3 +64,34 @@
   align-items: center;
   text-decoration: none;
 }
+.entete {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10, 12, 11, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--bordure);
+}
+
+.logo span {
+  color: var(--accent-clair);
+}
+.navigation a {
+  position: relative;
+  padding: 6px 0;
+}
+
+.navigation a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-clair);
+  transition: width 0.3s ease;
+}
+
+.navigation a:hover::after {
+  width: 100%;
+}

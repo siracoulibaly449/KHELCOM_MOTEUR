@@ -34,6 +34,7 @@ function MoteursEnStock() {
   return (
     <section className="stock">
       <div className="stock-entete">
+        <span className="etiquette">Stock disponible</span>
         <h2>Moteurs <span className="accent">en stock</span></h2>
         <Link to="/catalogue" className="tout-voir">Tout voir →</Link>
       </div>
