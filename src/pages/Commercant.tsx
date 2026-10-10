@@ -91,7 +91,6 @@ function Commercant() {
         <a className={vue === 'commandes' ? 'actif' : ''} onClick={() => setVue('commandes')}>Commandes</a>
         <span className="bientot">Stocks (bientôt)</span>
         <span className="bientot">Clients et retours (bientôt)</span>
-        <Link to="/">← Accueil du site</Link>
         <Link to="/catalogue">Voir le catalogue</Link>
         <Link to="/commercant/compte">Mon compte</Link>
         <button className="admin-deconnexion" onClick={deconnexion}>Se déconnecter</button>

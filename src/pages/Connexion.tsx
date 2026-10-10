@@ -37,6 +37,7 @@ function Connexion() {
         {erreur && <p style={{ color: '#FF7A7A', margin: 0 }}>{erreur}</p>}
         <button type="submit" style={bouton}>Se connecter</button>
         <Link to="/mot-de-passe-oublie" className="tout-voir">Mot de passe oublié ?</Link>
+        <Link to="/" className="bouton-retour">← Accueil</Link>
       </form>
     </main>
   )
