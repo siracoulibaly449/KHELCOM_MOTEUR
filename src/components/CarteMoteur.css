@@ -132,3 +132,73 @@
   background: var(--accent-clair);
   box-shadow: 0 0 8px var(--accent-clair);
 }
+.carte-image {
+  display: block;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  width: 100%;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 40%, #1C2A23, #0A0F0C);
+}
+
+.carte-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s ease;
+}
+
+.carte:hover .carte-image img {
+  transform: scale(1.05);
+}
+
+.carte-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(18, 24, 22, 0.8), transparent 45%);
+  pointer-events: none;
+}
+
+.sans-photo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--texte-discret);
+  font-size: 14px;
+}
+
+.badge-etat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  background: rgba(74, 222, 128, 0.12);
+  color: var(--accent-clair);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-etat::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-clair);
+  box-shadow: 0 0 8px var(--accent-clair);
+}
+
+.alerte-titre {
+  align-self: flex-start;
+  color: #F5B942;
+  font-size: 12px;
+  font-weight: 700;
+}

@@ -7,14 +7,11 @@ function Header() {
 
   return (
     <header className="entete">
-      <div className="logo">
-        MOTEURS<span>.</span>PRO
-      </div>
+      <Link to="/" className="logo">MOTEURS<span>.</span>PRO</Link>
 
       <nav className="navigation">
+        <Link to="/">Accueil</Link>
         <Link to="/catalogue">Moteurs</Link>
-        <a href="#">Pièces</a>
-        <a href="#">Occasion</a>
         <Link to="/garanties">Conditions</Link>
         <Link to="/contact">Contact</Link>
       </nav>

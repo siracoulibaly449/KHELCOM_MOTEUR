@@ -83,3 +83,84 @@
   color: #FF7A7A;
   font-size: 14px;
 }
+.pleine {
+  grid-column: 1 / -1;
+}
+
+.grille-champs textarea {
+  padding: 12px;
+  background: var(--fond);
+  color: var(--texte);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  font-size: 15px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.bloc-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-top: 18px;
+  border-top: 1px solid var(--bordure);
+}
+
+.bloc-photos h3 {
+  font-size: 18px;
+}
+
+.photos-actuelles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.photo-cellule {
+  margin: 0;
+  position: relative;
+  background: var(--fond);
+  border: 1px solid var(--bordure);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.photo-cellule img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+}
+
+.principale {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--accent);
+  color: #03140A;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.photo-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+}
+
+.photo-actions button {
+  min-height: 36px;
+  background: transparent;
+  color: var(--texte);
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.photo-actions .retirer-photo {
+  color: #F87171;
+}
