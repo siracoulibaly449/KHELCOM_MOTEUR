@@ -199,3 +199,12 @@
     font-size: 36px;
   }
 }
+@media (max-width: 520px) {
+  .actions-fiche {
+    flex-direction: column;
+  }
+  .actions-fiche .fiche-bouton {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -50,3 +50,21 @@
     grid-template-columns: 1fr;
   }
 }
+@media (max-width: 860px) {
+  .stock {
+    padding: 40px 20px 56px;
+  }
+  .stock-grille {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 520px) {
+  .stock-grille {
+    grid-template-columns: 1fr;
+  }
+  .stock h2 {
+    font-size: 30px;
+  }
+}

@@ -1,10 +1,14 @@
 import './Footer.css'
+import Logo from './Logo'
 
 function Footer() {
   return (
     <footer className="pied">
-      <span>© MOTEURS.PRO · Mentions légales · Confidentialité · CGV</span>
-      <span>Service client · FAQ · Contact</span>
+      <div className="pied-marque">
+        <Logo />
+        <span>© {new Date().getFullYear()} KHELCOM-MOTORS</span>
+      </div>
+      <span>Mentions légales · Confidentialité · Conditions de vente</span>
     </footer>
   )
 }

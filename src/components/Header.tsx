@@ -1,13 +1,14 @@
 import './Header.css'
 import { Link } from 'react-router-dom'
 import { usePanier } from '../context/usePanier'
+import Logo from './Logo'
 
 function Header() {
   const { nombre } = usePanier()
 
   return (
     <header className="entete">
-      <Link to="/" className="logo">MOTEURS<span>.</span>PRO</Link>
+      <Logo />
 
       <nav className="navigation">
         <Link to="/">Accueil</Link>

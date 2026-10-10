@@ -108,3 +108,35 @@
     font-size: 84px;
   }
 }
+.hero-grille {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+  align-items: center;
+}
+
+@media (max-width: 860px) {
+  .hero {
+    padding: 32px 20px 56px;
+  }
+  .hero h1 {
+    font-size: 44px !important;
+  }
+  .hero-texte {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .hero h1 {
+    font-size: 36px !important;
+  }
+  .boutons {
+    flex-direction: column;
+  }
+  .boutons button,
+  .boutons a {
+    width: 100%;
+    text-align: center;
+  }
+}

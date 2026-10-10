@@ -6,16 +6,26 @@ import AjouterMoteur from '../components/AjouterMoteur'
 import ListeCommandes from '../components/ListeCommandes'
 import { formatPrix } from '../lib/format'
 import type { Moteur } from '../data/moteurs'
+import Logo from '../components/Logo'
 
 const statuts = ['Disponible', 'Réservé', 'En préparation', 'Vendu']
 
 function Commercant() {
   const navigate = useNavigate()
   const [lignes, setLignes] = useState<Moteur[]>([])
-  const [ajoutOuvert, setAjoutOuvert] = useState(false)
+  const [formulaireOuvert, setFormulaireOuvert] = useState(false)
   const [moteurEdite, setMoteurEdite] = useState<Moteur | null>(null)
   const [message, setMessage] = useState('')
   const [vue, setVue] = useState<'moteurs' | 'commandes'>('moteurs')
+  const [recherche, setRecherche] = useState('')
+  const [filtreStatut, setFiltreStatut] = useState('Tous')
+
+  const lignesFiltrees = lignes.filter((l) => {
+    const texte = `${l.nom} ${l.code} ${l.vehicule_origine ?? ''} ${l.vin ?? ''}`.toLowerCase()
+    const correspondTexte = texte.includes(recherche.trim().toLowerCase())
+    const correspondStatut = filtreStatut === 'Tous' || l.disponibilite === filtreStatut
+    return correspondTexte && correspondStatut
+  })
 
   async function charger() {
     const { data, error } = await supabase.from('moteurs').select('*').order('id')
@@ -45,6 +55,18 @@ function Commercant() {
       annule = true
     }
   }, [])
+
+  function ouvrirFormulaire(moteur: Moteur | null) {
+    setMoteurEdite(moteur)
+    setFormulaireOuvert(true)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  function fermerFormulaire() {
+    setFormulaireOuvert(false)
+    setMoteurEdite(null)
+    charger()
+  }
 
   async function changerStatut(ligne: Moteur, nouveau: string) {
     setMessage('')
@@ -83,10 +105,13 @@ function Commercant() {
 
   const compte = (s: string) => lignes.filter((l) => l.disponibilite === s).length
 
+  const couleurCompte = (valeur: number, couleur: string) =>
+    valeur === 0 ? 'var(--texte-discret)' : couleur
+
   return (
     <div className="admin">
       <aside className="admin-menu">
-        <div className="admin-logo">MOTEURS<span>.</span>PRO</div>
+        <div className="admin-logo"><Logo /></div>
         <a className={vue === 'moteurs' ? 'actif' : ''} onClick={() => setVue('moteurs')}>Tableau de bord</a>
         <a className={vue === 'commandes' ? 'actif' : ''} onClick={() => setVue('commandes')}>Commandes</a>
         <span className="bientot">Stocks (bientôt)</span>
@@ -102,43 +127,71 @@ function Commercant() {
             <h1>Commandes</h1>
             <ListeCommandes />
           </>
+        ) : formulaireOuvert ? (
+          <AjouterMoteur
+            moteurInitial={moteurEdite}
+            onAjoute={fermerFormulaire}
+            onAnnuler={fermerFormulaire}
+          />
         ) : (
           <>
             <div className="entete-page">
               <h1>Mes moteurs</h1>
-              {!ajoutOuvert && (
-                <button
-                  className="bouton-ajouter"
-                  onClick={() => { setMoteurEdite(null); setAjoutOuvert(true) }}
-                >
-                  + Ajouter un moteur
-                </button>
-              )}
+              <button className="bouton-ajouter" onClick={() => ouvrirFormulaire(null)}>
+                + Ajouter un moteur
+              </button>
             </div>
 
             {message && <p className="erreur">{message}</p>}
 
-            {ajoutOuvert && (
-              <AjouterMoteur
-                moteurInitial={moteurEdite}
-                onAjoute={() => { setAjoutOuvert(false); setMoteurEdite(null); charger() }}
-                onAnnuler={() => { setAjoutOuvert(false); setMoteurEdite(null) }}
-              />
-            )}
-
             <div className="indicateurs">
               <div><span>Total</span><strong>{lignes.length}</strong></div>
-              <div><span>Disponibles</span><strong style={{ color: 'var(--succes)' }}>{compte('Disponible')}</strong></div>
-              <div><span>Réservés</span><strong style={{ color: 'var(--ambre)' }}>{compte('Réservé')}</strong></div>
-              <div><span>Vendus</span><strong style={{ color: 'var(--bleu)' }}>{compte('Vendu')}</strong></div>
+              <div>
+                <span>Disponibles</span>
+                <strong style={{ color: couleurCompte(compte('Disponible'), 'var(--succes)') }}>
+                  {compte('Disponible')}
+                </strong>
+              </div>
+              <div>
+                <span>Réservés</span>
+                <strong style={{ color: couleurCompte(compte('Réservé'), 'var(--succes)') }}>
+                  {compte('Réservé')}
+                </strong>
+              </div>
+              <div>
+                <span>Vendus</span>
+                <strong style={{ color: couleurCompte(compte('Vendu'), 'var(--bleu)') }}>
+                  {compte('Vendu')}
+                </strong>
+              </div>
+            </div>
+
+            <div className="barre-recherche">
+              <input
+                type="search"
+                placeholder="Rechercher un moteur, un code, un véhicule, un VIN…"
+                value={recherche}
+                onChange={(e) => setRecherche(e.target.value)}
+              />
+              <select value={filtreStatut} onChange={(e) => setFiltreStatut(e.target.value)}>
+                <option>Tous</option>
+                {statuts.map((s) => <option key={s}>{s}</option>)}
+              </select>
             </div>
 
             <section className="tableau">
               <div className="tableau-tete">
-                <span>Moteur</span><span>Prix</span><span>Statut et actions</span>
+                <span>Photo</span><span>Moteur</span><span>Prix</span><span>Statut et actions</span>
               </div>
-              {lignes.map((l) => (
+              {lignesFiltrees.map((l) => (
                 <div key={l.id} className="tableau-ligne">
+                  <div className="miniature-liste">
+                    {l.photos && l.photos.length > 0 ? (
+                      <img src={l.photos[0]} alt={l.nom} />
+                    ) : (
+                      <span>Aucune</span>
+                    )}
+                  </div>
                   <div>
                     <strong>{l.nom}</strong>
                     <div className="sous-ligne">Code {l.code} · {l.vehicule_origine ?? 'véhicule non renseigné'}</div>
@@ -148,16 +201,17 @@ function Commercant() {
                     <select value={l.disponibilite} onChange={(e) => changerStatut(l, e.target.value)}>
                       {statuts.map((s) => <option key={s}>{s}</option>)}
                     </select>
-                    <button
-                      className="bouton-modifier"
-                      onClick={() => { setMoteurEdite(l); setAjoutOuvert(true) }}
-                    >
+                    <button className="bouton-modifier" onClick={() => ouvrirFormulaire(l)}>
                       Modifier
                     </button>
                   </div>
                 </div>
               ))}
             </section>
+
+            {lignesFiltrees.length === 0 && (
+              <p className="liste-vide">Aucun moteur ne correspond à votre recherche.</p>
+            )}
           </>
         )}
       </main>

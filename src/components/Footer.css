@@ -8,3 +8,9 @@
   font-size: 14px;
   color: var(--texte-doux);
 }
+.pied-marque {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
