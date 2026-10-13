@@ -130,12 +130,70 @@ function Commercant() {
 
       <aside className={`admin-menu ${menuOuvert ? 'ouvert' : ''}`}>
         <div className="admin-logo"><Logo /></div>
-        <a className={vue === 'moteurs' ? 'actif' : ''} onClick={() => choisirVue('moteurs')}>Tableau de bord</a>
-        <a className={vue === 'commandes' ? 'actif' : ''} onClick={() => choisirVue('commandes')}>Commandes</a>
-        <span className="bientot">Stocks (bientôt)</span>
-        <span className="bientot">Clients et retours (bientôt)</span>
-        <Link to="/commercant/compte" onClick={() => setMenuOuvert(false)}>Mon compte</Link>
-        <button className="admin-deconnexion" onClick={deconnexion}>Se déconnecter</button>
+
+        <nav className="menu-section" aria-label="Principal">
+          <span className="menu-titre">Principal</span>
+          <button
+            type="button"
+            className={`menu-item ${vue === 'moteurs' ? 'actif' : ''}`}
+            onClick={() => choisirVue('moteurs')}
+          >
+            <span className="menu-icone" aria-hidden="true">▦</span>
+            Catalogue moteurs
+          </button>
+          <button
+            type="button"
+            className={`menu-item ${vue === 'commandes' ? 'actif' : ''}`}
+            onClick={() => choisirVue('commandes')}
+          >
+            <span className="menu-icone" aria-hidden="true">☰</span>
+            Commandes
+          </button>
+        </nav>
+
+        <nav className="menu-section" aria-label="Stock et logistique">
+          <span className="menu-titre">Stock et logistique</span>
+          <span className="menu-item desactive">
+            <span className="menu-icone" aria-hidden="true">▤</span>
+            Stocks et alertes
+          </span>
+          <span className="menu-item desactive">
+            <span className="menu-icone" aria-hidden="true">⇄</span>
+            Frais de livraison
+          </span>
+        </nav>
+
+        <nav className="menu-section" aria-label="Espace professionnel">
+          <span className="menu-titre">Espace pro</span>
+          <span className="menu-item desactive">
+            <span className="menu-icone" aria-hidden="true">◇</span>
+            Garagistes
+          </span>
+          <span className="menu-item desactive">
+            <span className="menu-icone" aria-hidden="true">↻</span>
+            Consignes
+          </span>
+          <span className="menu-item desactive">
+            <span className="menu-icone" aria-hidden="true">▭</span>
+            Devis et factures
+          </span>
+        </nav>
+
+        <nav className="menu-section" aria-label="Compte">
+          <span className="menu-titre">Compte</span>
+          <Link
+            to="/commercant/compte"
+            className="menu-item"
+            onClick={() => setMenuOuvert(false)}
+          >
+            <span className="menu-icone" aria-hidden="true">●</span>
+            Mon compte
+          </Link>
+        </nav>
+
+        <button type="button" className="admin-deconnexion" onClick={deconnexion}>
+          Se déconnecter
+        </button>
       </aside>
 
       <main className="admin-principal">

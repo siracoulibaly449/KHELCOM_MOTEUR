@@ -1,3 +1,4 @@
+/* ---------- Structure de l'espace commerçant ---------- */
 .admin {
   display: grid;
   grid-template-columns: 280px minmax(0, 1fr);
@@ -5,12 +6,12 @@
 }
 
 .admin-menu {
-  width: 310px;
+  width: 280px;
   padding: 28px 20px;
   border-right: 1px solid var(--bordure);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
   position: sticky;
   top: 0;
   height: 100vh;
@@ -19,38 +20,93 @@
 }
 
 .admin-logo {
-  font-family: var(--police-titre);
-  font-size: 22px;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
 }
 
-.admin-logo span {
-  color: var(--accent);
+.admin-menu .logo {
+  gap: 8px;
 }
 
-.admin-menu a {
-  padding: 12px 14px;
+.admin-menu .logo-icone {
+  width: 28px;
+  height: 28px;
+}
+
+.admin-menu .logo-texte {
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Groupes du menu ---------- */
+.menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.menu-titre {
+  padding: 0 14px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--texte-discret);
+}
+
+/* ---------- Entrées du menu ---------- */
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 14px;
+  background: transparent;
+  border: 0;
   border-radius: 12px;
   color: var(--texte-doux);
+  font-family: inherit;
   font-size: 15px;
-  cursor: pointer;
+  text-align: left;
   text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-.admin-menu a.actif {
-  background: var(--accent);
-  color: var(--accent-texte);
+.menu-item:hover {
+  background: rgba(74, 222, 128, 0.06);
+  color: var(--texte);
+}
+
+.menu-item.actif {
+  background: rgba(34, 197, 94, 0.14);
+  color: var(--accent-clair);
   font-weight: 700;
+  box-shadow: inset 3px 0 0 var(--accent);
 }
 
-.admin-menu .bientot {
-  padding: 12px 14px;
-  color: var(--texte-doux);
-  opacity: 0.45;
-  font-size: 15px;
+.menu-item.desactive {
+  opacity: 0.4;
   cursor: default;
 }
 
+.menu-item.desactive:hover {
+  background: transparent;
+  color: var(--texte-doux);
+}
+
+.menu-icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  flex-shrink: 0;
+  font-size: 14px;
+  color: inherit;
+}
+
+/* ---------- Déconnexion ---------- */
 .admin-deconnexion {
   margin-top: auto;
   min-height: 44px;
@@ -58,9 +114,18 @@
   color: var(--texte-doux);
   border: 1px solid var(--bordure);
   border-radius: 999px;
+  font-family: inherit;
+  font-size: 15px;
   cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
 }
 
+.admin-deconnexion:hover {
+  border-color: #F87171;
+  color: #F87171;
+}
+
+/* ---------- Zone principale ---------- */
 .admin-principal {
   min-width: 0;
   padding: 28px 36px;
@@ -83,6 +148,7 @@
   gap: 16px;
 }
 
+/* ---------- Indicateurs ---------- */
 .indicateurs {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -110,6 +176,7 @@
   font-size: 30px;
 }
 
+/* ---------- Recherche ---------- */
 .barre-recherche {
   display: flex;
   gap: 12px;
@@ -144,6 +211,7 @@
   box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
 }
 
+/* ---------- Tableau des moteurs ---------- */
 .tableau {
   background: var(--carte);
   border: 1px solid var(--bordure);
@@ -230,6 +298,7 @@
   color: var(--accent-clair);
 }
 
+/* ---------- Formulaire d'ajout et de modification ---------- */
 .formulaire {
   max-width: 480px;
   background: var(--carte);
@@ -262,4 +331,342 @@
 
 .formulaire .bouton-ajouter {
   align-self: flex-start;
+}
+/* ---------- Mon compte ---------- */
+.compte {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 40px 36px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: var(--texte);
+}
+
+.compte-entete {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.compte-entete h1 {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  font-size: 34px;
+  margin: 10px 0 0;
+}
+
+.compte-deco {
+  min-height: 44px;
+  padding: 0 18px;
+  background: transparent;
+  color: var(--texte-doux);
+  border: 1px solid var(--bordure);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.compte-deco:hover {
+  border-color: #F87171;
+  color: #F87171;
+}
+
+/* Carte d'identité */
+.compte-carte-identite {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 28px;
+  padding: 30px;
+  background:
+    radial-gradient(500px 180px at 100% 0%, rgba(34, 197, 94, 0.14), transparent 70%),
+    linear-gradient(180deg, var(--carte-haute) 0%, var(--carte) 70%);
+  border: 1px solid var(--bordure-vive);
+  border-radius: 24px;
+  box-shadow: var(--ombre);
+}
+
+.compte-avatar {
+  width: 76px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 22px;
+  background: linear-gradient(160deg, #34D975 0%, var(--accent) 100%);
+  color: var(--accent-texte);
+  font-family: var(--police-titre);
+  font-size: 30px;
+  box-shadow: 0 14px 30px -10px rgba(34, 197, 94, 0.6);
+}
+
+.compte-identite {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.compte-label {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--texte-discret);
+}
+
+.compte-identite strong {
+  font-size: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.compte-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(74, 222, 128, 0.1);
+  border: 1px solid var(--bordure-vive);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-clair);
+}
+
+.compte-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-clair);
+  box-shadow: 0 0 8px var(--accent-clair);
+}
+
+.compte-infos {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding-left: 28px;
+  border-left: 1px solid var(--bordure);
+}
+
+.compte-infos dt {
+  font-size: 12px;
+  color: var(--texte-discret);
+}
+
+.compte-infos dd {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--texte);
+}
+
+/* Blocs de contenu */
+.compte-bloc {
+  padding: 30px;
+  background: var(--carte);
+  border: 1px solid var(--bordure);
+  border-radius: 22px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 32px;
+}
+
+.compte-bloc-entete h2 {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  font-size: 22px;
+  margin: 0 0 8px;
+}
+
+.compte-bloc-entete p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--texte-doux);
+}
+
+.compte-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.compte-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
+
+.compte-form input {
+  min-height: 48px;
+  padding: 12px 14px;
+  background: var(--fond);
+  color: var(--texte);
+  border: 1px solid var(--bordure);
+  border-radius: 12px;
+  font-size: 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.compte-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.14);
+}
+
+.compte-champ {
+  position: relative;
+  display: block;
+}
+
+.compte-champ input {
+  width: 100%;
+  padding-right: 96px;
+}
+
+.compte-voir {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  min-height: 34px;
+  padding: 6px 10px;
+  background: transparent;
+  color: var(--texte-doux);
+  border: 0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.compte-voir:hover {
+  color: var(--accent-clair);
+}
+
+/* Indicateur de force */
+.force {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: -6px;
+}
+
+.force-barres {
+  display: flex;
+  gap: 6px;
+}
+
+.force-barre {
+  width: 46px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--bordure);
+  transition: background 0.3s ease;
+}
+
+.force-barre.niveau-1 { background: #F87171; }
+.force-barre.niveau-2 { background: var(--ambre); }
+.force-barre.niveau-3 { background: var(--accent-clair); }
+
+.force-libelle {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
+
+/* Messages et bouton */
+.compte-message {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.compte-message.ok {
+  background: rgba(74, 222, 128, 0.08);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  color: var(--accent-clair);
+}
+
+.compte-message.erreur {
+  background: rgba(248, 113, 113, 0.08);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  color: #FCA5A5;
+}
+
+.compte-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.compte-bouton {
+  min-height: 50px;
+  padding: 0 26px;
+  background: var(--accent);
+  color: var(--accent-texte);
+  border: 0;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.compte-bouton:hover:not(:disabled) {
+  background: var(--accent-clair);
+}
+
+.compte-bouton:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* ---------- Tablette et mobile ---------- */
+@media (max-width: 860px) {
+  .compte {
+    padding: 28px 20px 48px;
+  }
+
+  .compte-carte-identite {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .compte-infos {
+    grid-column: 1 / -1;
+    padding-left: 0;
+    padding-top: 18px;
+    border-left: 0;
+    border-top: 1px solid var(--bordure);
+    flex-direction: row;
+    gap: 32px;
+  }
+
+  .compte-bloc {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 22px;
+  }
+}
+
+@media (max-width: 520px) {
+  .compte-carte-identite {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+  }
+
+  .compte-infos {
+    flex-direction: column;
+    gap: 14px;
+  }
 }

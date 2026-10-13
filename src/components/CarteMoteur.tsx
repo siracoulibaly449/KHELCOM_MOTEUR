@@ -21,6 +21,7 @@ function CarteMoteur({ moteur }: { moteur: Moteur }) {
           Occasion
           {moteur.kilometrage ? ` · ${moteur.kilometrage.toLocaleString('fr-FR')} km` : ''}
         </span>
+        <span className="badge-origine">Importé des États-Unis</span>
 
         <h3>{moteur.nom}</h3>
 

@@ -1,52 +1,156 @@
-import { useState } from 'react'
+import { useMemo, useState, type FormEvent } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useMoteurs } from '../data/useMoteurs'
+import { parserVehicule } from '../lib/vehicule'
 import './RechercheVehicule.css'
 
-// Données de test, à remplacer plus tard par la base Supabase
-const vehicules: Record<string, Record<string, string[]>> = {
-  Volkswagen: { Golf: ['1.6 TDI 105 ch', '2.0 TSI 180 ch'], Passat: ['1.6 TDI 105 ch'] },
-  Peugeot: { '308': ['1.2 PureTech 110 ch'], '3008': ['1.2 PureTech 110 ch'] },
-}
-
 function RechercheVehicule() {
+  const navigate = useNavigate()
+  const { moteurs, chargement } = useMoteurs()
   const [marque, setMarque] = useState('')
   const [modele, setModele] = useState('')
-  const [motorisation, setMotorisation] = useState('')
+  const [annee, setAnnee] = useState('')
+  const [q, setQ] = useState('')
 
-  const modeles = marque ? Object.keys(vehicules[marque]) : []
-  const motorisations = marque && modele ? vehicules[marque][modele] : []
+  // Seuls les moteurs disponibles alimentent les listes
+  const disponibles = useMemo(
+    () =>
+      moteurs
+        .filter((m) => m.disponibilite === 'Disponible')
+        .map((m) => ({ m, v: parserVehicule(m.vehicule_origine) })),
+    [moteurs]
+  )
+
+  const marques = useMemo(
+    () =>
+      [...new Set(disponibles.map((d) => d.v?.marque).filter((x): x is string => !!x))].sort(),
+    [disponibles]
+  )
+
+  const modeles = useMemo(
+    () =>
+      [...new Set(
+        disponibles
+          .filter((d) => d.v?.marque === marque)
+          .map((d) => d.v?.modele)
+          .filter((x): x is string => !!x)
+      )].sort(),
+    [disponibles, marque]
+  )
+
+  const annees = useMemo(
+    () =>
+      [...new Set(
+        disponibles
+          .filter((d) => d.v?.marque === marque && (!modele || d.v?.modele === modele))
+          .map((d) => d.v?.annee)
+          .filter((x): x is string => !!x)
+      )].sort((a, b) => b.localeCompare(a)),
+    [disponibles, marque, modele]
+  )
+
+  const nombre = useMemo(() => {
+    const texte = q.trim().toLowerCase()
+    return disponibles.filter(({ m, v }) => {
+      const correspondVehicule =
+        (!marque || v?.marque === marque) &&
+        (!modele || v?.modele === modele) &&
+        (!annee || v?.annee === annee)
+      const contenu = `${m.nom} ${m.code} ${m.compatibilite} ${m.vehicule_origine ?? ''} ${m.vin ?? ''}`.toLowerCase()
+      return correspondVehicule && contenu.includes(texte)
+    }).length
+  }, [disponibles, marque, modele, annee, q])
+
+  function chercher(e: FormEvent) {
+    e.preventDefault()
+    const p = new URLSearchParams()
+    if (marque) p.set('marque', marque)
+    if (modele) p.set('modele', modele)
+    if (annee) p.set('annee', annee)
+    if (q.trim()) p.set('q', q.trim())
+    navigate(`/catalogue?${p.toString()}`)
+  }
+
+  function reinitialiser() {
+    setMarque('')
+    setModele('')
+    setAnnee('')
+    setQ('')
+  }
+
+  const pluriel = nombre > 1 ? 's' : ''
 
   return (
-    <div className="recherche">
-      <h2>Mon véhicule</h2>
+    <form className="rv" onSubmit={chercher}>
+      <div className="rv-entete">
+        <span className="rv-point" aria-hidden="true" />
+        <div>
+          <h2>Trouver mon moteur</h2>
+          <p>Choisissez votre véhicule. Nous ne montrons que les moteurs compatibles.</p>
+        </div>
+      </div>
 
-      <label>
-        Marque
-        <select value={marque} onChange={(e) => { setMarque(e.target.value); setModele(''); setMotorisation('') }}>
-          <option value="">Choisissez une marque</option>
-          {Object.keys(vehicules).map((m) => <option key={m}>{m}</option>)}
-        </select>
-      </label>
+      <div className="rv-champs">
+        <label>
+          Marque
+          <select
+            value={marque}
+            onChange={(e) => {
+              setMarque(e.target.value)
+              setModele('')
+              setAnnee('')
+            }}
+          >
+            <option value="">Toutes les marques</option>
+            {marques.map((x) => <option key={x}>{x}</option>)}
+          </select>
+        </label>
 
-      <label>
-        Modèle
-        <select value={modele} disabled={!marque} onChange={(e) => { setModele(e.target.value); setMotorisation('') }}>
-          <option value="">Choisissez un modèle</option>
-          {modeles.map((m) => <option key={m}>{m}</option>)}
-        </select>
-      </label>
+        <label>
+          Modèle
+          <select
+            value={modele}
+            disabled={!marque}
+            onChange={(e) => {
+              setModele(e.target.value)
+              setAnnee('')
+            }}
+          >
+            <option value="">Tous les modèles</option>
+            {modeles.map((x) => <option key={x}>{x}</option>)}
+          </select>
+        </label>
 
-      <label>
-        Motorisation
-        <select value={motorisation} disabled={!modele} onChange={(e) => setMotorisation(e.target.value)}>
-          <option value="">Choisissez une motorisation</option>
-          {motorisations.map((m) => <option key={m}>{m}</option>)}
-        </select>
-      </label>
+        <label>
+          Année
+          <select value={annee} disabled={!marque} onChange={(e) => setAnnee(e.target.value)}>
+            <option value="">Toutes les années</option>
+            {annees.map((x) => <option key={x}>{x}</option>)}
+          </select>
+        </label>
 
-      <button className="voir-pieces" disabled={!motorisation}>
-        Voir mes pièces compatibles
-      </button>
-    </div>
+        <label>
+          Code moteur, VIN ou mot-clé
+          <input
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            placeholder="ex. CAYC, 1C4RJ…"
+          />
+        </label>
+      </div>
+
+      <div className="rv-pied">
+        <span className="rv-compte" aria-live="polite">
+          {chargement ? 'Chargement…' : `${nombre} moteur${pluriel} disponible${pluriel}`}
+        </span>
+        <div className="rv-actions">
+          <button type="button" className="rv-reset" onClick={reinitialiser}>Effacer</button>
+          <button type="submit" className="rv-submit" disabled={chargement || nombre === 0}>
+            Voir les résultats
+          </button>
+        </div>
+      </div>
+    </form>
   )
 }
 

@@ -1,49 +1,150 @@
-.recherche {
-  background: var(--carte);
-  border: 1px solid var(--bordure);
-  border-radius: 20px;
-  padding: 30px;
+.rv {
+  width: 100%;
+  max-width: 520px;
+  justify-self: end;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
+  padding: 30px;
+  background: linear-gradient(180deg, var(--carte-haute) 0%, var(--carte) 70%);
+  border: 1px solid var(--bordure);
+  border-radius: 24px;
+  box-shadow: var(--ombre);
 }
 
-.recherche label {
-  font-size: 13px;
+.rv-entete {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.rv-point {
+  flex-shrink: 0;
+  width: 10px;
+  height: 10px;
+  margin-top: 8px;
+  border-radius: 50%;
+  background: var(--accent-clair);
+  box-shadow: 0 0 10px var(--accent-clair);
+}
+
+.rv-entete h2 {
+  font-family: var(--police-titre);
+  font-weight: 400;
+  font-size: 22px;
+  margin: 0 0 6px;
+}
+
+.rv-entete p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
   color: var(--texte-doux);
-  font-weight: 600;
+}
+
+.rv-champs {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.rv label {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--texte-doux);
 }
 
-.recherche select {
-  padding: 13px;
+.rv select,
+.rv input {
   min-height: 48px;
-  font-size: 16px;
+  padding: 12px 14px;
   background: var(--fond);
   color: var(--texte);
   border: 1px solid var(--bordure);
   border-radius: 12px;
-}
-
-.recherche select:disabled {
-  opacity: 0.45;
-}
-
-.voir-pieces {
-  margin-top: 8px;
-  min-height: 48px;
-  background: var(--texte);
-  color: var(--fond);
-  border: 0;
-  border-radius: 12px;
-  font-weight: 700;
+  font-family: inherit;
   font-size: 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rv input::placeholder {
+  color: var(--texte-discret);
+}
+
+.rv select:focus,
+.rv input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.14);
+}
+
+.rv select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.rv-pied {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 18px;
+  border-top: 1px solid var(--bordure);
+}
+
+.rv-compte {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent-clair);
+}
+
+.rv-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.rv-reset,
+.rv-submit {
+  min-height: 46px;
+  padding: 0 18px;
+  border-radius: 12px;
+  font-size: 15px;
   cursor: pointer;
 }
 
-.voir-pieces:disabled {
-  opacity: 0.4;
+.rv-reset {
+  background: transparent;
+  color: var(--texte-doux);
+  border: 1px solid var(--bordure);
+}
+
+.rv-reset:hover {
+  color: var(--texte);
+}
+
+.rv-submit {
+  background: var(--accent);
+  color: var(--accent-texte);
+  border: 0;
+  font-weight: 700;
+}
+
+.rv-submit:hover:not(:disabled) {
+  background: var(--accent-clair);
+}
+
+.rv-submit:disabled {
+  opacity: 0.45;
   cursor: not-allowed;
+}
+
+@media (max-width: 960px) {
+  .rv {
+    justify-self: stretch;
+    max-width: 100%;
+  }
 }

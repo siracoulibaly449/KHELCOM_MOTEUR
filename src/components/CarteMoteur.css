@@ -137,3 +137,9 @@
   text-decoration: none;
   cursor: pointer;
 }
+.badge-origine {
+  align-self: flex-start;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texte-doux);
+}
