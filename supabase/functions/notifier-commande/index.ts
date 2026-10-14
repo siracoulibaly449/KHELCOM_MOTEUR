@@ -1,5 +1,10 @@
 // @ts-nocheck
 Deno.serve(async (req) => {
+  // Refuse tout appel qui ne vient pas du webhook Supabase
+  if (req.headers.get('x-webhook-secret') !== Deno.env.get('WEBHOOK_SECRET')) {
+    return new Response('non autorisé', { status: 401 })
+  }
+
   const { record } = await req.json()
 
   const message =
