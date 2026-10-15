@@ -16,6 +16,8 @@ import NouveauMotDePasse from './pages/NouveauMotDePasse'
 import PanierFlottant from './components/PanierFlottant'
 import ConnexionFlottante from './components/ConnexionFlottante'
 import './responsive.css'
+import './theme-clair.css'
+
 
 function App() {
   return (
@@ -51,6 +53,7 @@ function App() {
 
       <PanierFlottant />
       <ConnexionFlottante />
+      
     </>
   )
 }

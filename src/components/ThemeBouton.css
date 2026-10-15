@@ -1,0 +1,31 @@
+.theme-bascule {
+  position: fixed;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 150;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid var(--bordure-vive);
+  background: var(--surface);
+  color: var(--texte);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 10px 26px -10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.theme-bascule:hover {
+  border-color: var(--accent);
+  transform: translateY(-50%) scale(1.06);
+}
+
+@media (max-width: 640px) {
+  .theme-bascule {
+    left: 14px;
+    width: 44px;
+    height: 44px;
+  }
+}

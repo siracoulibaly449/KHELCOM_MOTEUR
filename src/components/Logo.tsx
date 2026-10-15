@@ -16,8 +16,11 @@ function Logo({ variante = 'complet' }: Props) {
         <circle cx="26" cy="34" r="3.5" fill="#F4F7F5" />
       </svg>
       {variante === 'complet' && (
-        <span className="logo-texte">
-          KHELCOM<span>-MOTORS</span>
+        <span className="logo-bloc">
+          <span className="logo-texte">
+            KHELCOM<span>-MOTORS</span>
+          </span>
+          <span className="logo-signature">by Khadim</span>
         </span>
       )}
     </Link>

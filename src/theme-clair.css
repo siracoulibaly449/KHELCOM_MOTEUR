@@ -1,0 +1,45 @@
+/* Palette du mode clair */
+[data-theme="light"] {
+  --fond: #F4F7F5;
+  --surface: #FFFFFF;
+  --carte: #FFFFFF;
+  --carte-haute: #F0F5F2;
+  --bordure: #DCE5DF;
+  --bordure-vive: rgba(34, 197, 94, 0.35);
+  --texte: #0A0C0B;
+  --texte-doux: #4B5751;
+  --texte-discret: #7A857F;
+  --accent-clair: #16A34A;
+  --succes: #16A34A;
+  --accent-texte: #03140A;
+  --lueur: 0 0 0 1px rgba(34, 197, 94, 0.3), 0 20px 50px -18px rgba(34, 197, 94, 0.25);
+  --ombre: 0 20px 50px -24px rgba(15, 23, 42, 0.18);
+}
+
+[data-theme="light"] body {
+  background: var(--fond);
+  color-scheme: light;
+}
+
+/* Éléments dont la couleur est fixée dans leur fichier */
+[data-theme="light"] .entete {
+  background: rgba(255, 255, 255, 0.92);
+}
+
+[data-theme="light"] .cnx-marque {
+  background: linear-gradient(160deg, #EEF5F0 0%, #E2EDE5 100%);
+}
+
+[data-theme="light"] .carte-image,
+[data-theme="light"] .galerie-principale,
+[data-theme="light"] .miniature-liste {
+  background: radial-gradient(circle at 50% 40%, #E6F0EA, #D3E3D9);
+}
+
+[data-theme="light"] .admin-menu {
+  background: var(--surface);
+}
+
+[data-theme="light"] .cnx-saisie input {
+  background: #FFFFFF;
+}

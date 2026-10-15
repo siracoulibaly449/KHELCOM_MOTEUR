@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App'
 import { PanierProvider } from './context/PanierContext'
+import './lib/theme'
 
 createRoot(document.getElementById('root')!).render(
  <StrictMode>

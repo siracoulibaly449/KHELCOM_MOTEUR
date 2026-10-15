@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import './Header.css'
 import Logo from './Logo'
+import { appliquerTheme, lireTheme, type Theme } from '../lib/theme'
 
 const liens = [
   { to: '/', libelle: 'Accueil' },
@@ -12,6 +13,12 @@ const liens = [
 
 function Header() {
   const [ouvert, setOuvert] = useState(false)
+  const [theme, setTheme] = useState<Theme>(() => lireTheme())
+  function basculerTheme() {
+    const suivant: Theme = theme === 'clair' ? 'sombre' : 'clair'
+    appliquerTheme(suivant)
+    setTheme(suivant)
+  }
   const fermer = () => setOuvert(false)
 
   return (
@@ -26,6 +33,15 @@ function Header() {
         </nav>
 
         <div className="actions">
+          <button
+            type="button"
+            className="theme-entete"
+            onClick={basculerTheme}
+            aria-label={theme === 'clair' ? 'Passer en mode sombre' : 'Passer en mode clair'}
+            title={theme === 'clair' ? 'Mode sombre' : 'Mode clair'}
+          >
+            {theme === 'clair' ? '☾' : '☀'}
+          </button>
           <button
             type="button"
             className="burger"
